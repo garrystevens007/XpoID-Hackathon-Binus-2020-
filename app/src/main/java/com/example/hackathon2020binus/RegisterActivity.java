@@ -3,6 +3,7 @@ package com.example.hackathon2020binus;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -21,7 +22,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.HashMap;
 import java.util.Map;
 
-public class RegisterActivity extends AppCompatActivity {
+public class RegisterActivity extends LoginActivity {
 
     Button register_btn_back, register_btn_signup, register_btn_google, register_btn_login;
     EditText register_et_email, register_et_fullname, register_et_phonenumber, register_et_pass, register_et_confirmpass;
@@ -37,14 +38,14 @@ public class RegisterActivity extends AppCompatActivity {
         register_btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //go to login
+                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
             }
         });
 
         register_btn_google.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //go to google
+               signIn();
             }
         });
 
@@ -133,5 +134,6 @@ public class RegisterActivity extends AppCompatActivity {
         register_et_confirmpass = findViewById(R.id.register_et_confirmpass);
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseFirestore = FirebaseFirestore.getInstance();
+        gso();
     }
 }
