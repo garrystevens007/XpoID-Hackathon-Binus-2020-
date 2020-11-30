@@ -3,6 +3,7 @@ package com.example.hackathon2020binus;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,7 +23,6 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //go to login
-
             }
         });
 
@@ -41,10 +41,23 @@ public class RegisterActivity extends AppCompatActivity {
                         , phonenumber = register_et_phonenumber.getText().toString().trim(),
                         pass = register_et_pass.getText().toString().trim()
                         , confirmpass = register_et_confirmpass.getText().toString().trim();
-
+                String regex = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
                 if(email.isEmpty() || fullname.isEmpty()||phonenumber.isEmpty()||pass.isEmpty()||confirmpass.isEmpty()){
                     //alert here
+                    return;
                 }
+
+                if(email.matches(regex)) Log.d("OK","OK");
+                else return;//alert here
+
+                if(pass.length() < 8){
+                    //alert here
+                    return;
+                }
+
+                if(confirmpass.equals(pass))Log.d("Pass","Ok");
+                else return;//alert here
+
             }
         });
 
