@@ -63,7 +63,7 @@ public class RegisterActivity extends AppCompatActivity {
                 if(confirmpass.equals(pass))Log.d("Pass","Ok");
                 else return;//alert here
 
-                
+
 
             }
         });
