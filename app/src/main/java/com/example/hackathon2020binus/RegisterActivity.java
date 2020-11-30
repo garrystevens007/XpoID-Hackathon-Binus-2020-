@@ -50,13 +50,20 @@ public class RegisterActivity extends AppCompatActivity {
                 if(email.matches(regex)) Log.d("OK","OK");
                 else return;//alert here
 
-                if(pass.length() < 8){
+                if(pass.length() < 8) {
+                    //alert here
+                    return;
+                }
+
+                if(confirmpass.length() < 8){
                     //alert here
                     return;
                 }
 
                 if(confirmpass.equals(pass))Log.d("Pass","Ok");
                 else return;//alert here
+
+                
 
             }
         });
