@@ -134,6 +134,6 @@ public class RegisterActivity extends LoginActivity {
         register_et_confirmpass = findViewById(R.id.register_et_confirmpass);
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseFirestore = FirebaseFirestore.getInstance();
-        //signInOptions();
+        gso();
     }
 }
