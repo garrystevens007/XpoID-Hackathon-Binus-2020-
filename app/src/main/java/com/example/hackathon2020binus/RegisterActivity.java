@@ -29,7 +29,6 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //go to google
-                
             }
         });
 
