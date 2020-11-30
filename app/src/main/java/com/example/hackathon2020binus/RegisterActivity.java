@@ -91,7 +91,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     }
 
-    private void registerFirebase(final String email, String password){
+    public void registerFirebase(final String email, String password){
         firebaseAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
