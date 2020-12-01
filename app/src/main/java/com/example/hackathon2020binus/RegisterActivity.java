@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.hackathon2020binus.Fragment.FragmentController;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -86,6 +87,7 @@ public class RegisterActivity extends LoginActivity {
 
 
                 registerFirebase(email,pass);
+                startActivity(new Intent(getApplicationContext(), FragmentController.class));
                 Log.d("Firebase : ","is Created!");
             }
         });
