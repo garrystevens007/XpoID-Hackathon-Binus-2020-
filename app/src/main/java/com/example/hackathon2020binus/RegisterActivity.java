@@ -36,6 +36,13 @@ public class RegisterActivity extends LoginActivity {
         setContentView(R.layout.activity_register);
         init();
 
+        register_btn_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+            }
+        });
+
         register_btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

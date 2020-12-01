@@ -30,7 +30,7 @@ public class LoginActivity extends AppCompatActivity {
     final private int RC_SIGN_IN = 0;
     FirebaseAuth firebaseAuth;
     EditText login_et_email,login_et_password;
-    Button login_btn_signIn,login_btn_signUp,login_btn_continueWithGoogle;
+    Button login_btn_signIn,login_btn_signUp,login_btn_continueWithGoogle, login_btn_backButton;
     GoogleSignInClient mGoogleSignInClient;
     private ProgressDialog mLoadingBar;
 
@@ -48,6 +48,7 @@ public class LoginActivity extends AppCompatActivity {
         login_et_password = findViewById(R.id.login_et_password);
         login_btn_signIn = findViewById(R.id.login_btn_signIn);
         login_btn_signUp = findViewById(R.id.login_btn_signUp);
+        login_btn_backButton = findViewById(R.id.appCompatButton);
         login_btn_continueWithGoogle = findViewById(R.id.login_btn_continueWithGoogle);
         firebaseAuth = FirebaseAuth.getInstance();
         mLoadingBar = new ProgressDialog(LoginActivity.this);
@@ -105,6 +106,14 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(), RegisterActivity.class));
             }
         });
+
+        login_btn_backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+            }
+        });
+
     }
 
     public void gso(){
