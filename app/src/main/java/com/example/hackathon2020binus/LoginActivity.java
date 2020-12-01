@@ -40,7 +40,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         initView();
-        startActivity(new Intent(getApplicationContext(), FragmentController.class));
+
     }
 
     private void initView() {
@@ -86,15 +86,25 @@ public class LoginActivity extends AppCompatActivity {
                 mLoadingBar.setCanceledOnTouchOutside(false);
                 mLoadingBar.show();
                 inputDataFirebase(email,password);
+                startActivity(new Intent(getApplicationContext(), FragmentController.class));
             }
         });
         login_btn_continueWithGoogle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 signIn();
+                startActivity(new Intent(getApplicationContext(), FragmentController.class));
             }
         });
         gso();
+
+        login_btn_signUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), RegisterActivity.class));
+            }
+        });
     }
 
     public void gso(){
