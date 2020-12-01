@@ -1,5 +1,6 @@
 package com.example.hackathon2020binus.Adapter;
 
+import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Adapter;
@@ -7,7 +8,19 @@ import android.widget.Adapter;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.hackathon2020binus.model.Umkm;
+
+import java.util.ArrayList;
+
 public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHolder>{
+
+    private Context mContext;
+    private ArrayList<Umkm> mUmkmList;
+
+    public ExploreAdapter(Context context, ArrayList<Umkm> mUmkmList){
+        this.mContext = context;
+        this.mUmkmList = mUmkmList;
+    }
 
     @NonNull
     @Override
@@ -22,7 +35,7 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
 
     @Override
     public int getItemCount() {
-        return 0;
+        return mUmkmList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
