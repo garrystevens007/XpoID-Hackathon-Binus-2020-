@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".RegisterActivity"
-    android:background="@drawable/bg_register">
+    android:background="@drawable/bg_register"
+    android:paddingBottom="10dp">
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/register_btn_back"
@@ -45,20 +46,19 @@
         android:hint="E-mail Address"
         android:paddingStart="12dp"
         android:paddingEnd="12dp"
-        android:textSize="15dp"
-        android:textColorHint="@color/gray"
         android:textColor="@color/black"
+        android:textColorHint="@color/gray"
+        android:textSize="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/register_tv_title"
-        app:layout_constraintVertical_bias="0.24" />
+        app:layout_constraintVertical_bias="0.223" />
 
     <EditText
         android:id="@+id/register_et_fullname"
         android:layout_width="331dp"
         android:layout_height="38dp"
-        android:layout_marginTop="8dp"
         android:background="@drawable/custom_input"
         android:drawableStart="@drawable/custom_name_icon"
         android:drawablePadding="12dp"
@@ -66,20 +66,19 @@
         android:hint="Fullname"
         android:paddingStart="12dp"
         android:paddingEnd="12dp"
-        android:textSize="15dp"
-        android:textColorHint="@color/gray"
         android:textColor="@color/black"
+        android:textColorHint="@color/gray"
+        android:textSize="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/register_et_email"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.01999998" />
 
     <EditText
         android:id="@+id/register_et_phonenumber"
         android:layout_width="331dp"
         android:layout_height="38dp"
-        android:layout_marginTop="8dp"
         android:background="@drawable/custom_input"
         android:drawableStart="@drawable/custom_phone_icon"
         android:drawablePadding="14dp"
@@ -87,21 +86,19 @@
         android:hint="Phone number"
         android:paddingStart="10dp"
         android:paddingEnd="12dp"
-        android:textSize="15dp"
-        android:textColorHint="@color/gray"
         android:textColor="@color/black"
+        android:textColorHint="@color/gray"
+        android:textSize="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/register_et_fullname"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.018" />
 
     <EditText
         android:id="@+id/register_et_pass"
         android:layout_width="331dp"
         android:layout_height="38dp"
-        android:layout_marginTop="8dp"
         android:background="@drawable/custom_input"
         android:drawableStart="@drawable/custom_password_icon"
         android:drawablePadding="12dp"
@@ -110,21 +107,19 @@
         android:inputType="textPassword"
         android:paddingStart="16dp"
         android:paddingEnd="12dp"
-        android:textSize="15sp"
-        android:textColorHint="@color/gray"
         android:textColor="@color/black"
+        android:textColorHint="@color/gray"
+        android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/register_et_phonenumber"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.021" />
 
     <EditText
         android:id="@+id/register_et_confirmpass"
         android:layout_width="331dp"
         android:layout_height="38dp"
-        android:layout_marginTop="8dp"
         android:background="@drawable/custom_input"
         android:drawableStart="@drawable/custom_password_icon"
         android:drawablePadding="12dp"
@@ -133,21 +128,19 @@
         android:inputType="textPassword"
         android:paddingStart="16dp"
         android:paddingEnd="12dp"
-        android:textSize="15sp"
-        android:textColorHint="@color/gray"
         android:textColor="@color/black"
+        android:textColorHint="@color/gray"
+        android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/register_et_pass"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.029" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/register_btn_signup"
         android:layout_width="331dp"
         android:layout_height="43dp"
-        android:layout_marginTop="10dp"
         android:background="@drawable/btn_blue_nostroke"
         android:fontFamily="@font/roboto_bold"
         android:text="Sign up"
@@ -185,12 +178,11 @@
         android:id="@+id/linearLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/register_btn_google"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintVertical_bias="0.04000002">
 
         <ImageView
             android:layout_width="149dp"
@@ -206,8 +198,8 @@
             android:layout_marginRight="10dp"
             android:fontFamily="@font/roboto_bold"
             android:text="or"
-            android:textSize="13sp"
-            android:textColor="@color/gray"/>
+            android:textColor="@color/gray"
+            android:textSize="13sp" />
 
         <ImageView
             android:layout_width="149dp"
@@ -222,10 +214,11 @@
         android:id="@+id/register_btn_login"
         android:layout_width="331dp"
         android:layout_height="43dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginBottom="10dp"
         android:background="@drawable/btn_white_withstroke"
         android:fontFamily="@font/roboto_bold"
-        android:text="Sign up"
+        android:text="Sign in"
+        android:textAllCaps="false"
         android:textColor="@color/gray"
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -233,6 +226,6 @@
         app:layout_constraintHorizontal_bias="0.471"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.04000002" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
