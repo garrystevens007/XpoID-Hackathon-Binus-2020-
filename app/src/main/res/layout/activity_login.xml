@@ -149,6 +149,7 @@
             android:layout_marginRight="10dp"
             android:fontFamily="@font/roboto_bold"
             android:text="or"
+            android:textColor="@color/gray"
             android:textSize="13sp" />
 
         <ImageView
@@ -164,11 +165,13 @@
         android:layout_width="331dp"
         android:layout_height="43dp"
         android:layout_marginTop="5dp"
+        android:layout_marginBottom="10dp"
         android:background="@drawable/btn_white_withstroke"
         android:fontFamily="@font/roboto_bold"
         android:text="Sign up"
         android:textColor="@color/gray"
         android:textSize="15sp"
+        android:textAllCaps="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
