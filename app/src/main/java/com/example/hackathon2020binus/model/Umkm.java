@@ -11,6 +11,10 @@ public class Umkm {
     private String ownerName;
     private String phone;
 
+    public  Umkm(){
+
+    }
+
     public String getDeksripsi() {
         return deksripsi;
     }
