@@ -110,14 +110,14 @@
         android:text="Continue with google"
         android:textAllCaps="false"
         android:textSize="15sp"
+        android:drawableLeft="@drawable/icon_google"
+        android:paddingLeft="70dp"
+        android:paddingRight="70dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/login_btn_signIn"
-        app:layout_constraintVertical_bias="0.067"
-        android:drawableLeft="@drawable/icon_google"
-        android:paddingLeft="70dp"
-        android:paddingRight="70dp"/>
+        app:layout_constraintVertical_bias="0.067"/>
 
     <LinearLayout
         android:id="@+id/linearLayout"
