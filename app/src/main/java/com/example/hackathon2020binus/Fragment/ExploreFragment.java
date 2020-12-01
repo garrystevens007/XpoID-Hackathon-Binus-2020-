@@ -51,6 +51,8 @@ public class ExploreFragment extends Fragment {
        // Log.d("ArraySize ", ": " + listUmkm.size());
         fetchData();
 
+        explore_rv_listUMKM.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+
         return view;
     }
 

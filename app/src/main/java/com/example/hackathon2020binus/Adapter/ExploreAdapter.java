@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.hackathon2020binus.R;
 import com.example.hackathon2020binus.model.Umkm;
 
@@ -39,6 +40,7 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
         final Umkm umkm = mUmkmList.get(position);
         holder.rectangle_tv_title.setText(umkm.getNama());
         holder.rectangle_tv_desc.setText(umkm.getDeksripsi());
+        Glide.with(mContext).load(umkm.getGambar()).into(holder.rectangle_img_logo);
     }
 
     @Override
