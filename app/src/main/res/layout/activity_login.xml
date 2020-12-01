@@ -115,6 +115,7 @@
         android:textAllCaps="false"
         android:textSize="15sp"
         android:drawableLeft="@drawable/icon_google"
+        android:textColor="@color/black"
         android:paddingLeft="70dp"
         android:paddingRight="70dp"
         app:layout_constraintBottom_toBottomOf="parent"
