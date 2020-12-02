@@ -278,4 +278,17 @@ yang terjangkau"
         app:layout_constraintTop_toTopOf="@+id/view5"
         style="?android:attr/borderlessButtonStyle"/>
 
+    <androidx.appcompat.widget.AppCompatButton
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="38dp"
+        android:layout_height="38dp"
+        android:layout_marginStart="10dp"
+        android:background="@drawable/icon_contact"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/view5" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
