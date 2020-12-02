@@ -20,11 +20,17 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity {
     final private int RC_SIGN_IN = 0;
@@ -32,6 +38,8 @@ public class LoginActivity extends AppCompatActivity {
     EditText login_et_email,login_et_password;
     Button login_btn_signIn,login_btn_signUp,login_btn_continueWithGoogle, login_btn_backButton;
     GoogleSignInClient mGoogleSignInClient;
+    FirebaseFirestore firebaseFirestore;
+    String userID;
     private ProgressDialog mLoadingBar;
 
     @Override
@@ -51,6 +59,7 @@ public class LoginActivity extends AppCompatActivity {
         login_btn_backButton = findViewById(R.id.appCompatButton);
         login_btn_continueWithGoogle = findViewById(R.id.login_btn_continueWithGoogle);
         firebaseAuth = FirebaseAuth.getInstance();
+        firebaseFirestore = FirebaseFirestore.getInstance();
         mLoadingBar = new ProgressDialog(LoginActivity.this);
 
         login_btn_signIn.setOnClickListener(new View.OnClickListener() {
@@ -95,7 +104,6 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 signIn();
-                startActivity(new Intent(getApplicationContext(), FragmentController.class));
             }
         });
         gso();
@@ -110,10 +118,15 @@ public class LoginActivity extends AppCompatActivity {
         login_btn_backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                onBackPressed();
             }
         });
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 
     public void gso(){
@@ -135,7 +148,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
                     Toast.makeText(LoginActivity.this,"Login success",Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                    startActivity(new Intent(getApplicationContext(), FragmentController.class));
                     finish();
                 }else{
                     Toast.makeText(LoginActivity.this, "Error !", Toast.LENGTH_SHORT).show();
@@ -165,8 +178,22 @@ public class LoginActivity extends AppCompatActivity {
             firebaseAuth.signInWithCredential(authCredential).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
-                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                    finish();
+                    userID = firebaseAuth.getCurrentUser().getUid();
+                    DocumentReference documentReference = firebaseFirestore.collection("users").document(userID);
+                    Map<String,Object> user = new HashMap<>();
+                    user.put("email",firebaseAuth.getCurrentUser().getEmail());
+                    user.put("historyFranchise",1);
+                    user.put("historyPartnership",0);
+                    user.put("listNotif",0);
+                    user.put("name",firebaseAuth.getCurrentUser().getDisplayName());
+                    user.put("phone",firebaseAuth.getCurrentUser().getPhoneNumber());
+                    documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Log.d("Firebase ", "onSuccess: user profile is created " + userID);
+                        }
+                    });
+                    startActivity(new Intent(getApplicationContext(), FragmentController.class));
                 }
             });
             // Signed in successfully, show authenticated UI.

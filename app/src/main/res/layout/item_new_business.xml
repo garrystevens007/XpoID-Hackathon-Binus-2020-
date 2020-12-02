@@ -8,8 +8,10 @@
     android:layout_margin="10dp">
 
     <ImageView
+        android:id="@+id/square_img_logo"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/blue"/>
+        android:background="@color/blue"
+        android:scaleType="fitXY" />
 
 </androidx.cardview.widget.CardView>

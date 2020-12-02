@@ -39,7 +39,7 @@ public class RegisterActivity extends LoginActivity {
         register_btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                onBackPressed();
             }
         });
 
@@ -99,6 +99,11 @@ public class RegisterActivity extends LoginActivity {
             }
         });
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 
     public void registerFirebase(final String email, String password){
