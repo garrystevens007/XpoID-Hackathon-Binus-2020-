@@ -9,7 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Hackathon2020Binus">
-        <activity android:name=".Fragment.FragmentController"></activity>
+        <activity android:name=".Fragment.FragmentController" android:windowSoftInputMode="adjustPan">
+
+        </activity>
         <activity android:name=".DetailUmkmActivity" />
         <activity android:name=".NotificationsActivity" />
         <activity android:name=".RegisterActivity" />
