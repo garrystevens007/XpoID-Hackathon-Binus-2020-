@@ -16,7 +16,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.hackathon2020binus.Adapter.ExploreAdapter;
 import com.example.hackathon2020binus.Adapter.HomeFrBisnisBaruAdapter;
+import com.example.hackathon2020binus.Adapter.HomeFrPromotionAdapter;
 import com.example.hackathon2020binus.R;
+import com.example.hackathon2020binus.model.PromotionItems;
 import com.example.hackathon2020binus.model.Umkm;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -33,7 +35,10 @@ public class HomeFragment extends Fragment {
     ImageView circleImageView;
     RecyclerView homeFr_rv_bisnis_terbaru,homeFr_rv_promotion,homeFr_rv_rekomendasi_bisnis;
     ArrayList<Umkm> listUmkm;
+    ArrayList<PromotionItems> promoItems;
     HomeFrBisnisBaruAdapter homeFrBisnisBaruAdapter;
+    HomeFrPromotionAdapter homeFrPromotionAdapter;
+    ExploreAdapter exploreAdapter;
     FirebaseFirestore db;
 
     @Nullable
@@ -43,6 +48,8 @@ public class HomeFragment extends Fragment {
         init(view);
         fetchData();
         homeFr_rv_bisnis_terbaru.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
+        homeFr_rv_rekomendasi_bisnis.setLayoutManager(new LinearLayoutManager(getActivity(),RecyclerView.VERTICAL,false));
+        homeFr_rv_promotion.setLayoutManager(new LinearLayoutManager(getActivity(),RecyclerView.HORIZONTAL,false));
         return view;
     }
     private void init(View view){
@@ -59,6 +66,8 @@ public class HomeFragment extends Fragment {
     }
     private void fetchData() {
         listUmkm = new ArrayList<>();
+        promoItems = new ArrayList<>();
+
         db = FirebaseFirestore.getInstance();
 
         CollectionReference collectionReference = db.collection("listUMKM");
@@ -84,10 +93,32 @@ public class HomeFragment extends Fragment {
                     }
                     homeFrBisnisBaruAdapter = new HomeFrBisnisBaruAdapter(getActivity(), listUmkm);
                     homeFr_rv_bisnis_terbaru.setAdapter(homeFrBisnisBaruAdapter);
+
+                    exploreAdapter = new ExploreAdapter(getActivity(),listUmkm);
+                    homeFr_rv_rekomendasi_bisnis.setAdapter(exploreAdapter);
                 } else {
                     Log.d("Error fetchdata :", "This is error message!");
                 }
 
+            }
+        });
+        CollectionReference collectionReference1 = db.collection("promotions");
+        Query promoQuery = collectionReference1;
+
+        promoQuery.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    promoItems.clear();
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        PromotionItems items = document.toObject(PromotionItems.class);
+                        items.setImgUrl(document.getData().get("gambar").toString());
+
+                        promoItems.add(items);
+                        homeFrPromotionAdapter = new HomeFrPromotionAdapter(getContext(),promoItems);
+                        homeFr_rv_promotion.setAdapter(homeFrPromotionAdapter);
+                    }
+                }
             }
         });
     }
