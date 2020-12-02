@@ -1,10 +1,13 @@
 package com.example.hackathon2020binus.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.media.ImageReader;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Adapter;
+import android.widget.AdapterView;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
@@ -14,6 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.hackathon2020binus.DetailUmkmActivity;
 import com.example.hackathon2020binus.R;
 import com.example.hackathon2020binus.model.Umkm;
 
@@ -24,6 +28,7 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
     private Context mContext;
     private ArrayList<Umkm> mUmkmList;
     private ArrayList<Umkm> fullList;
+    private AdapterView.OnItemClickListener mListener;
     public ExploreAdapter(Context context, ArrayList<Umkm> mUmkmList){
         this.mContext = context;
         this.mUmkmList = mUmkmList;
@@ -100,19 +105,25 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
         TextView rectangle_tv_title, rectangle_tv_desc;
         ImageView rectangle_img_logo;
 
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             rectangle_tv_title = itemView.findViewById(R.id.rectangle_tv_title);
             rectangle_tv_desc = itemView.findViewById(R.id.rectangle_tv_desc);
             rectangle_img_logo = itemView.findViewById(R.id.rectangle_img_logo);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent i = new Intent(itemView.getContext(), DetailUmkmActivity.class);
+                    i.putExtra("selectedUmkm",mUmkmList.get(getLayoutPosition()));
+                    mContext.startActivity(i);
+                }
+            });
         }
-
-
-
-
         @Override
         public void onClick(View v) {
-
         }
     }
+
 }
