@@ -10,7 +10,7 @@
     <ImageView
         android:id="@+id/promotion_img_promotionImage"
         android:layout_width="150dp"
-        android:layout_height="200dp"
-        android:background="@drawable/btn_blue_nostroke" />
+        android:layout_height="220dp"
+        android:scaleType="fitXY"/>
 
 </androidx.cardview.widget.CardView>
