@@ -12,8 +12,11 @@ import android.widget.Toast;
 import com.example.hackathon2020binus.Adapter.ExploreAdapter;
 import com.example.hackathon2020binus.MainActivity;
 import com.example.hackathon2020binus.R;
+import com.example.hackathon2020binus.Storage.FirebaseStorage;
+import com.example.hackathon2020binus.model.PromotionItems;
 import com.example.hackathon2020binus.model.Umkm;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -26,8 +29,7 @@ import java.util.ArrayList;
 public class SplashScreen extends AppCompatActivity {
 
     FirebaseFirestore db;
-    ArrayList<Umkm> listUmkm;
-    private boolean flag = true;
+    private boolean flag ;
     private final int SPLASH_DELAY_LENGTH = 1000;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,33 +38,23 @@ public class SplashScreen extends AppCompatActivity {
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    Log.d("Run","Masuk Bosku");
                     fetchData();
-                    if(flag == true){
-                        Intent i = new Intent(SplashScreen.this, MainActivity.class);
-                        SplashScreen.this.startActivity(i);
-                        SplashScreen.this.finish();
-                    }
                 }
             },SPLASH_DELAY_LENGTH);
-
-        if(flag == false){
-            Toast.makeText(SplashScreen.this,"Failed to retrive data!", Toast.LENGTH_SHORT).show();
-        }
-
     }
 
     public void fetchData(){
         db = FirebaseFirestore.getInstance();
-        listUmkm = new ArrayList<>();
         CollectionReference collectionReference = db.collection("listUMKM");
         Query umkmQuery = collectionReference;
+        Log.d("tes1" , ""+db+"   "+collectionReference);
+
 
         umkmQuery.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if(task.isSuccessful()){
-                    listUmkm.clear();
+                    FirebaseStorage.umkms.clear();
                     for(QueryDocumentSnapshot document : task.getResult()){
                         Umkm umkm = document.toObject(Umkm.class);
                         umkm.setNama(document.getData().get("nama").toString());
@@ -73,16 +65,39 @@ public class SplashScreen extends AppCompatActivity {
                         umkm.setOpenToPartnership((Boolean)document.getData().get("openToPartnerShip"));
                         umkm.setOwnerName(document.getData().get("ownerName").toString());
 
-                        listUmkm.add(umkm);
-                        Log.d("Size","onComplete: " + listUmkm.size());
+                        FirebaseStorage.umkms.add(umkm);
                     }
-                    flag = true;
-                }else{
-                    flag = false;
-                    Log.d("Error fetchdata :" , "This is error message!");
+
+                    CollectionReference collectionReference1 = db.collection("promotions");
+                    Query promoQuery = collectionReference1;
+
+                    promoQuery.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                FirebaseStorage.promoItems.clear();
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                    PromotionItems items = document.toObject(PromotionItems.class);
+                                    items.setImgUrl(document.getData().get("gambar").toString());
+                                    FirebaseStorage.promoItems.add(items);
+                                }
+                            }
+                        }
+                    });
+
+                    if(FirebaseStorage.umkms.isEmpty()){
+                        flag = false;
+                        Toast.makeText(SplashScreen.this,"Failed to retrive data!\nNo Internet Connection", Toast.LENGTH_SHORT).show();
+                    }else{
+                        flag = true;
+                        Intent i = new Intent(SplashScreen.this, MainActivity.class);
+                        SplashScreen.this.startActivity(i);
+                        SplashScreen.this.finish();
+                    }
                 }
             }
         });
+
     }
 
 }
