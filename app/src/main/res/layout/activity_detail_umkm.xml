@@ -23,6 +23,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
                 android:background="@color/blue"
+                android:scaleType="fitXY"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -247,7 +248,7 @@ yang terjangkau"
         app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/appCompatButton2"
+        android:id="@+id/detailActivity_btn_partnership"
         android:layout_width="153dp"
         android:layout_height="38dp"
         android:background="@drawable/btn_white_withstroke_blue"
@@ -263,6 +264,7 @@ yang terjangkau"
         style="?android:attr/borderlessButtonStyle"/>
 
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/detailActivity_btn_franchise"
         android:layout_width="153dp"
         android:layout_height="38dp"
         android:background="@drawable/btn_blue_nostroke"
@@ -272,7 +274,7 @@ yang terjangkau"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/appCompatButton2"
+        app:layout_constraintStart_toEndOf="@+id/detailActivity_btn_partnership"
         app:layout_constraintTop_toTopOf="@+id/view5"
         style="?android:attr/borderlessButtonStyle"/>
 

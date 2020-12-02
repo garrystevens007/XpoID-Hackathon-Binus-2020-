@@ -1,6 +1,18 @@
 package com.example.hackathon2020binus.model;
 
-public class Umkm {
+import android.os.Build;
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import androidx.annotation.RequiresApi;
+
+import com.google.firebase.firestore.Exclude;
+
+public class Umkm implements Parcelable {
+
+    @Exclude private String currId;
+
+
 
     private String deksripsi;
     private String gambar;
@@ -13,6 +25,14 @@ public class Umkm {
 
     public  Umkm(){
 
+    }
+
+    public String currId(){
+        return currId;
+    }
+
+    public void setCurrId(String id){
+        this.id = id;
     }
 
     public String getDeksripsi() {
@@ -92,5 +112,51 @@ public class Umkm {
         this.phone = phone;
     }
 
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.Q)
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(deksripsi);
+        dest.writeString(gambar);
+        dest.writeString(id);
+        dest.writeString(nama);
+        //dest.writeString(String.valueOf(openToFranchise));
+        //dest.writeBoolean(openToFranchise);
+        //dest.writeBoolean(openToPartnership);
+        //dest.writeString(String.valueOf(openToPartnership));
+        dest.writeString(ownerName);
+        dest.writeString(phone);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.Q)
+    protected Umkm(Parcel in){
+        this.deksripsi = in.readString();
+        this.gambar = in.readString();
+        this.id = in.readString();
+        this.nama = in.readString();
+        //this.openToFranchise = in.readBoolean();
+        //this.openToPartnership = in.readBoolean();
+        this.ownerName = in.readString();
+        this.phone = in.readString();
+    }
+
+    public static final Parcelable.Creator<Umkm> CREATOR = new Parcelable.Creator<Umkm>(){
+
+        @RequiresApi(api = Build.VERSION_CODES.Q)
+        @Override
+        public Umkm createFromParcel(Parcel source) {
+            return new Umkm(source);
+        }
+
+        @Override
+        public Umkm[] newArray(int size) {
+            return new Umkm[size];
+        }
+    };
 
 }
