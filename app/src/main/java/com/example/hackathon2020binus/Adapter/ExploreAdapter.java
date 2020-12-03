@@ -29,6 +29,7 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
     private ArrayList<Umkm> mUmkmList;
     private ArrayList<Umkm> fullList;
     private AdapterView.OnItemClickListener mListener;
+
     public ExploreAdapter(Context context, ArrayList<Umkm> mUmkmList){
         this.mContext = context;
         this.mUmkmList = mUmkmList;

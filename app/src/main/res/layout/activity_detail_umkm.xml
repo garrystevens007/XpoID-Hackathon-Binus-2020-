@@ -220,6 +220,7 @@ yang terjangkau"
                 app:layout_constraintVertical_bias="0.0">
 
                 <com.google.android.gms.maps.MapView
+                    android:id="@+id/detailActivity_bisnis_map"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
 

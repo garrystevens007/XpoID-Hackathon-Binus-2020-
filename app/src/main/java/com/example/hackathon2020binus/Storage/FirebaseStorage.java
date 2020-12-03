@@ -47,6 +47,8 @@ public class FirebaseStorage {
                         umkm.setOpenToFranchise((Boolean) document.getData().get("openToFranchise"));
                         umkm.setOpenToPartnership((Boolean) document.getData().get("openToPartnerShip"));
                         umkm.setOwnerName(document.getData().get("ownerName").toString());
+                        umkm.setLatitude((Double) document.getData().get("latitude"));
+                        umkm.setLongitude((Double) document.getData().get("longitude"));
 
                         umkms.add(umkm);
                     }

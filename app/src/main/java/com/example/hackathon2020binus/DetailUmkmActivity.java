@@ -17,24 +17,49 @@ import com.bumptech.glide.Glide;
 import com.example.hackathon2020binus.Fragment.ExploreFragment;
 import com.example.hackathon2020binus.Storage.FirebaseStorage;
 import com.example.hackathon2020binus.model.Umkm;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-public class DetailUmkmActivity extends AppCompatActivity {
+import static com.example.hackathon2020binus.Util.Constants.MAPVIEW_BUNDLE_KEY;
+
+public class DetailUmkmActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     ImageView detailActivity_imgView_imgBisnis;
     Button detailActivity_btn_back, detailActivity_btn_franchise, detailActivity_btn_partnership, detailActivity_btn_contact;
     TextView detailActivity_tv_title, detailActivity_tv_year, detailActivity_tv_description,
             detailActivity_tv_omzet;
+    MapView bisnisMap;
     RecyclerView detailActivity_rv_productImg;
     private FirebaseFirestore db;
+
+    Double lat;
+    Double lng;
+    String nama="";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_umkm);
+        bisnisMap = findViewById(R.id.detailActivity_bisnis_map);
 
         Intent intent = getIntent();
         init(intent);
+        initGoogleMap(savedInstanceState);
 
+    }
+
+    private void initGoogleMap(Bundle savedInstanceState){
+        Bundle mapViewBundle = null;
+        if (savedInstanceState != null) {
+            mapViewBundle = savedInstanceState.getBundle(MAPVIEW_BUNDLE_KEY);
+        }
+        bisnisMap.onCreate(mapViewBundle);
+
+        bisnisMap.getMapAsync(this);
     }
 
     private void init(Intent intent){
@@ -57,6 +82,10 @@ public class DetailUmkmActivity extends AppCompatActivity {
         detailActivity_tv_description.setText(listUmkm.getDeksripsi());
         Log.v("openFranchise",listUmkm.getOpenToFranchise()+"");
         Log.v("openPartnership",listUmkm.getOpenToPartnership()+"");
+
+        lat = listUmkm.getLatitude();
+        lng = listUmkm.getLongitude();
+        nama = listUmkm.getNama();
 
         if(listUmkm.getOpenToFranchise()==true){
             detailActivity_btn_franchise.setEnabled(true);
@@ -118,4 +147,59 @@ public class DetailUmkmActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
     }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        Bundle mapViewBundle = outState.getBundle(MAPVIEW_BUNDLE_KEY);
+        if (mapViewBundle == null) {
+            mapViewBundle = new Bundle();
+            outState.putBundle(MAPVIEW_BUNDLE_KEY, mapViewBundle);
+        }
+
+        bisnisMap.onSaveInstanceState(mapViewBundle);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        bisnisMap.onResume();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        bisnisMap.onStart();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        bisnisMap.onStop();
+    }
+
+    @Override
+    public void onMapReady(GoogleMap map) {
+        map.addMarker(new MarkerOptions().position(new LatLng(lat, lng)).title(nama));
+    }
+
+    @Override
+    public void onPause() {
+        bisnisMap.onPause();
+        super.onPause();
+    }
+
+    @Override
+    public void onDestroy() {
+        bisnisMap.onDestroy();
+        super.onDestroy();
+    }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+        bisnisMap.onLowMemory();
+    }
+
 }

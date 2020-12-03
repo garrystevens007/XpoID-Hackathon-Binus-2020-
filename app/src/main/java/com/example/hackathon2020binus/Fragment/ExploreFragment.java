@@ -20,6 +20,9 @@ import com.example.hackathon2020binus.Adapter.ExploreAdapter;
 import com.example.hackathon2020binus.R;
 import com.example.hackathon2020binus.Storage.FirebaseStorage;
 import com.example.hackathon2020binus.model.Umkm;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
@@ -33,6 +36,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import static com.example.hackathon2020binus.Util.Constants.MAPVIEW_BUNDLE_KEY;
+
 public class ExploreFragment extends Fragment {
 
     RecyclerView explore_rv_listUMKM;
@@ -41,12 +46,14 @@ public class ExploreFragment extends Fragment {
     ExploreAdapter exploreAdapter;
     FirebaseFirestore db;
 
+
     private void init(View view){
         explore_rv_listUMKM = view.findViewById(R.id.explore_rv_listUMKM);
         explore_et_search = view.findViewById(R.id.explore_et_search);
         listUmkm = FirebaseStorage.umkms;
         exploreAdapter = new ExploreAdapter(getActivity(), listUmkm);
         explore_rv_listUMKM.setAdapter(exploreAdapter);
+
     }
 
     @Nullable
@@ -86,4 +93,5 @@ public class ExploreFragment extends Fragment {
         }
         exploreAdapter.filterList(filterUmkm);
     }
+
 }
