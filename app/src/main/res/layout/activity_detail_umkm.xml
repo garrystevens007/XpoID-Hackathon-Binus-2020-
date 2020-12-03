@@ -279,6 +279,7 @@ yang terjangkau"
         style="?android:attr/borderlessButtonStyle"/>
 
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/detailActivity_btn_contact"
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="38dp"
         android:layout_height="38dp"

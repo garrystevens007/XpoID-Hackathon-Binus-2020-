@@ -64,6 +64,7 @@ public class SplashScreen extends AppCompatActivity {
                         umkm.setOpenToFranchise((Boolean)document.getData().get("openToFranchise"));
                         umkm.setOpenToPartnership((Boolean)document.getData().get("openToPartnerShip"));
                         umkm.setOwnerName(document.getData().get("ownerName").toString());
+                        umkm.setPhone(document.getData().get("phone").toString());
 
                         FirebaseStorage.umkms.add(umkm);
                     }
