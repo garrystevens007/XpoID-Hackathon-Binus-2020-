@@ -10,10 +10,6 @@ import com.google.firebase.firestore.Exclude;
 
 public class Umkm implements Parcelable {
 
-    @Exclude private String currId;
-
-
-
     private String deksripsi;
     private String gambar;
     private String id;
@@ -22,19 +18,28 @@ public class Umkm implements Parcelable {
     private Boolean openToPartnership;
     private String ownerName;
     private String phone;
+    private Double latitude;
+    private Double longitude;
+
+    public Double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
+    }
+
+    public Double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
+    }
 
     public  Umkm(){
 
     }
-
-    public String currId(){
-        return currId;
-    }
-
-    public void setCurrId(String id){
-        this.id = id;
-    }
-
     public String getDeksripsi() {
         return deksripsi;
     }
@@ -100,6 +105,18 @@ public class Umkm implements Parcelable {
     }
 
 
+    public Umkm(String deksripsi, String gambar, String id, String nama, Boolean openToFranchise, Boolean openToPartnership, String ownerName, String phone, Double latitude, Double longitude) {
+        this.deksripsi = deksripsi;
+        this.gambar = gambar;
+        this.id = id;
+        this.nama = nama;
+        this.openToFranchise = openToFranchise;
+        this.openToPartnership = openToPartnership;
+        this.ownerName = ownerName;
+        this.phone = phone;
+        this.latitude = latitude;
+        this.longitude = longitude;
+    }
 
     public Umkm(String deksripsi, String gambar, String id, String nama, Boolean openToFranchise, Boolean openToPartnership, String ownerName, String phone) {
         this.deksripsi = deksripsi;
@@ -131,6 +148,8 @@ public class Umkm implements Parcelable {
         //dest.writeString(String.valueOf(openToPartnership));
         dest.writeString(ownerName);
         dest.writeString(phone);
+        dest.writeDouble(latitude);
+        dest.writeDouble(longitude);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.Q)
@@ -143,6 +162,8 @@ public class Umkm implements Parcelable {
         this.openToPartnership = in.readByte() != 0;
         this.ownerName = in.readString();
         this.phone = in.readString();
+        this.latitude = in.readDouble();
+        this.longitude = in.readDouble();
     }
 
     public static final Parcelable.Creator<Umkm> CREATOR = new Parcelable.Creator<Umkm>(){

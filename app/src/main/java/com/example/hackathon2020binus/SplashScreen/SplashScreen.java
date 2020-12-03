@@ -24,6 +24,8 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import org.w3c.dom.Document;
+
 import java.util.ArrayList;
 
 public class SplashScreen extends AppCompatActivity {
@@ -65,6 +67,8 @@ public class SplashScreen extends AppCompatActivity {
                         umkm.setOpenToPartnership(Boolean.parseBoolean(document.getData().get("openToPartnership").toString()));
                         umkm.setOwnerName(document.getData().get("ownerName").toString());
                         umkm.setPhone(document.getData().get("phone").toString());
+                        umkm.setLatitude(Double.parseDouble(document.getData().get("latitude").toString()));
+                        umkm.setLongitude(Double.parseDouble(document.getData().get("longitude").toString()));
 
                         FirebaseStorage.umkms.add(umkm);
                     }
