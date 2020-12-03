@@ -61,8 +61,8 @@ public class SplashScreen extends AppCompatActivity {
                         umkm.setDeksripsi(document.getData().get("deskripsi").toString());
                         umkm.setGambar(document.getData().get("gambar").toString());
                         umkm.setId(document.getData().get("id").toString());
-                        umkm.setOpenToFranchise((Boolean)document.getData().get("openToFranchise"));
-                        umkm.setOpenToPartnership((Boolean)document.getData().get("openToPartnerShip"));
+                        umkm.setOpenToFranchise(Boolean.parseBoolean(document.getData().get("openToFranchise").toString()));
+                        umkm.setOpenToPartnership(Boolean.parseBoolean(document.getData().get("openToPartnership").toString()));
                         umkm.setOwnerName(document.getData().get("ownerName").toString());
                         umkm.setPhone(document.getData().get("phone").toString());
 
@@ -98,7 +98,6 @@ public class SplashScreen extends AppCompatActivity {
                 }
             }
         });
-
     }
 
 }

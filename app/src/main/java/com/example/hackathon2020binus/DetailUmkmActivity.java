@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -49,11 +50,26 @@ public class DetailUmkmActivity extends AppCompatActivity {
         detailActivity_rv_productImg = findViewById(R.id.detailActivity_rv_productImg);
         detailActivity_btn_contact = findViewById(R.id.detailActivity_btn_contact);
 
-        final Umkm listUmkm = intent.getParcelableExtra("selectedUmkm");
+        final Umkm listUmkm = (Umkm) intent.getParcelableExtra("selectedUmkm");
         Glide.with(DetailUmkmActivity.this).load(listUmkm.getGambar())
                 .into(detailActivity_imgView_imgBisnis);
         detailActivity_tv_title.setText(listUmkm.getNama());
         detailActivity_tv_description.setText(listUmkm.getDeksripsi());
+        Log.v("openFranchise",listUmkm.getOpenToFranchise()+"");
+        Log.v("openPartnership",listUmkm.getOpenToPartnership()+"");
+
+        if(listUmkm.getOpenToFranchise()==true){
+            detailActivity_btn_franchise.setEnabled(true);
+
+        }else{
+            detailActivity_btn_franchise.setEnabled(false);
+        }
+
+        if(listUmkm.getOpenToPartnership()) {
+            detailActivity_btn_partnership.setEnabled(true);
+        }else{
+            detailActivity_btn_partnership.setEnabled(false);
+        }
 
         detailActivity_btn_back.setOnClickListener(new View.OnClickListener() {
             @Override

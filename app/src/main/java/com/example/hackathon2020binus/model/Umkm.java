@@ -126,8 +126,8 @@ public class Umkm implements Parcelable {
         dest.writeString(id);
         dest.writeString(nama);
         //dest.writeString(String.valueOf(openToFranchise));
-        //dest.writeBoolean(openToFranchise);
-        //dest.writeBoolean(openToPartnership);
+        dest.writeByte((byte) (openToFranchise ? 1 : 0));
+        dest.writeByte((byte) (openToPartnership ? 1 : 0));
         //dest.writeString(String.valueOf(openToPartnership));
         dest.writeString(ownerName);
         dest.writeString(phone);
@@ -139,8 +139,8 @@ public class Umkm implements Parcelable {
         this.gambar = in.readString();
         this.id = in.readString();
         this.nama = in.readString();
-        //this.openToFranchise = in.readBoolean();
-        //this.openToPartnership = in.readBoolean();
+        this.openToFranchise = in.readByte() != 0;
+        this.openToPartnership = in.readByte() != 0;
         this.ownerName = in.readString();
         this.phone = in.readString();
     }

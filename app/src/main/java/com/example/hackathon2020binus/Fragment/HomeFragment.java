@@ -96,6 +96,7 @@ public class HomeFragment extends Fragment {
         homeFr_rv_rekomendasi_bisnis = view.findViewById(R.id.homeFr_rv_rekomendasi_bisnis);
         circleImageView = view.findViewById(R.id.circleImageView);
         listUmkm = FirebaseStorage.umkms;
+
         promoItems = FirebaseStorage.promoItems;
         homeFrBisnisBaruAdapter = new HomeFrBisnisBaruAdapter(getActivity(), listUmkm);
         homeFr_rv_bisnis_terbaru.setAdapter(homeFrBisnisBaruAdapter);
