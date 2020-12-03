@@ -85,6 +85,7 @@ public class HomeFragment extends Fragment {
         homeFr_rv_bisnis_terbaru = view.findViewById(R.id.homeFr_rv_bisnis_terbaru);
         homeFr_rv_promotion = view.findViewById(R.id.homeFr_rv_promotion);
         homeFr_rv_rekomendasi_bisnis = view.findViewById(R.id.homeFr_rv_rekomendasi_bisnis);
+       // homeFr_rv_rekomendasi_bisnis.setNestedScrollingEnabled(false);
         circleImageView = view.findViewById(R.id.circleImageView);
         listUmkm = FirebaseStorage.umkms;
         promoItems = FirebaseStorage.promoItems;
