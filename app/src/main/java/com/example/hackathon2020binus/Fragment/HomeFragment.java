@@ -54,7 +54,7 @@ public class HomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         init(view);
-        getInfo();
+        homeFr_tv_user_name.setText(FirebaseStorage.currUser);
         homeFr_rv_bisnis_terbaru.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
         homeFr_rv_rekomendasi_bisnis.setLayoutManager(new LinearLayoutManager(getActivity(),RecyclerView.VERTICAL,false));
         homeFr_rv_promotion.setLayoutManager(new LinearLayoutManager(getActivity(),RecyclerView.HORIZONTAL,false));
@@ -62,16 +62,7 @@ public class HomeFragment extends Fragment {
     }
 
     //getnama masih error
-    private void getInfo(){
-//        String currID = firebaseAuth.getCurrentUser().getUid();
-//        Log.d("HomeFragment","Current User " + currID);
-//        DocumentReference documentReference = firebaseFirestore.collection("users").document(currID);
-//        documentReference.addSnapshotListener(getActivity(), new EventListener<DocumentSnapshot>() {
-//            @Override
-//            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-//                homeFr_tv_user_name.setText(firebaseAuth.getCurrentUser().getDisplayName());
-//            }
-//        });
+
 //        documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
 //            @Override
 //            public void onSuccess(DocumentSnapshot documentSnapshot) {
@@ -84,7 +75,7 @@ public class HomeFragment extends Fragment {
 //                }
 //            }
 //        });
-    }
+ //   }
 
     private void init(View view){
         homeFr_tv_user_name = view.findViewById(R.id.homeFr_tv_user_name);

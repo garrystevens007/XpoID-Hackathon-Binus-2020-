@@ -24,6 +24,7 @@ public class FirebaseStorage {
     public static ArrayList<Notifications> notifications = new ArrayList<>();
     public static ArrayList<PromotionItems> promoItems = new ArrayList<>();
     public static ArrayList<Umkm> umkms = new ArrayList<>();
+    public static String currUser;
 
     private void fetchData() {
         FirebaseFirestore db = FirebaseFirestore.getInstance();

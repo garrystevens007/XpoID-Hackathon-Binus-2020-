@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.hackathon2020binus.Fragment.FragmentController;
+import com.example.hackathon2020binus.Storage.FirebaseStorage;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -27,7 +28,10 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -39,16 +43,15 @@ public class LoginActivity extends AppCompatActivity {
     Button login_btn_signIn,login_btn_signUp,login_btn_continueWithGoogle, login_btn_backButton;
     GoogleSignInClient mGoogleSignInClient;
     FirebaseFirestore firebaseFirestore;
-    String userID;
+    String userID, currUser;
     private ProgressDialog mLoadingBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
+        mLoadingBar = new ProgressDialog(LoginActivity.this);
         initView();
-
     }
 
     private void initView() {
@@ -60,7 +63,7 @@ public class LoginActivity extends AppCompatActivity {
         login_btn_continueWithGoogle = findViewById(R.id.login_btn_continueWithGoogle);
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseFirestore = FirebaseFirestore.getInstance();
-        mLoadingBar = new ProgressDialog(LoginActivity.this);
+
 
         login_btn_signIn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,6 +72,10 @@ public class LoginActivity extends AppCompatActivity {
                 String validateEmail = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
                 email = login_et_email.getText().toString().trim();
                 password = login_et_password.getText().toString().trim();
+                mLoadingBar.setTitle("Loging in");
+                mLoadingBar.setMessage("Please wait, while check your credentials");
+                mLoadingBar.setCanceledOnTouchOutside(false);
+                mLoadingBar.show();
 
                 if(email.equals("")){
                     login_et_email.setError("Email is required");
@@ -91,12 +98,9 @@ public class LoginActivity extends AppCompatActivity {
                 Log.d("Email", "onClick: " + email);
                 Log.d("Password", "onClick: " + password);
 
-                mLoadingBar.setTitle("Loging in");
-                mLoadingBar.setMessage("Please wait, while check your credentials");
-                mLoadingBar.setCanceledOnTouchOutside(false);
-                mLoadingBar.show();
+
                 inputDataFirebase(email,password);
-                startActivity(new Intent(getApplicationContext(), FragmentController.class));
+                //startActivity(new Intent(getApplicationContext(), FragmentController.class));
             }
         });
         login_btn_continueWithGoogle.setOnClickListener(new View.OnClickListener() {
@@ -124,6 +128,13 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mLoadingBar.dismiss();
+    }
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();
@@ -147,11 +158,26 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
-                    Toast.makeText(LoginActivity.this,"Login success",Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(getApplicationContext(), FragmentController.class));
-                    finish();
+                    getInfo();
                 }else{
                     Toast.makeText(LoginActivity.this, "Error !", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+    private void getInfo() {
+        String currID = firebaseAuth.getCurrentUser().getUid();
+        Log.d("HomeFragment", "Current User " + currID);
+        DocumentReference documentReference = firebaseFirestore.collection("users").document(currID);
+        documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                if (value.getString("name") != null) {
+                    Log.d("Fragment Controller", "Snapshot : " + value.getString("name"));
+                    FirebaseStorage.currUser = value.getString("name");
+                    startActivity(new Intent(getApplicationContext(), FragmentController.class));
+                    finish();
                 }
             }
         });
