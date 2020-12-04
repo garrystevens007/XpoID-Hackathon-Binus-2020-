@@ -70,6 +70,30 @@
                 app:layout_constraintTop_toBottomOf="@+id/detailActivity_imgView_imgBisnis"
                 app:layout_constraintVertical_bias="0.00999999" />
 
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/detailActivity_btn_save"
+                android:layout_width="26dp"
+                android:layout_height="26dp"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/icon_btn_unsaved"
+                app:layout_constraintBottom_toBottomOf="@+id/detailActivity_tv_title"
+                app:layout_constraintEnd_toEndOf="@+id/detailActivity_tv_title"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="@+id/detailActivity_tv_title"
+                app:layout_constraintTop_toTopOf="@+id/detailActivity_tv_title" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/detailActivity_btn_unsave"
+                android:layout_width="26dp"
+                android:layout_height="26dp"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/icon_btn_saved"
+                app:layout_constraintBottom_toBottomOf="@+id/detailActivity_tv_title"
+                app:layout_constraintEnd_toEndOf="@+id/detailActivity_tv_title"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="@+id/detailActivity_tv_title"
+                app:layout_constraintTop_toTopOf="@+id/detailActivity_tv_title" />
+
             <TextView
                 android:id="@+id/detailActivity_tv_year"
                 android:layout_width="match_parent"
