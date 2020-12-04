@@ -27,6 +27,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import org.w3c.dom.Document;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class SplashScreen extends AppCompatActivity {
 
@@ -69,6 +70,7 @@ public class SplashScreen extends AppCompatActivity {
                         umkm.setPhone(document.getData().get("phone").toString());
                         umkm.setLatitude(Double.parseDouble(document.getData().get("latitude").toString()));
                         umkm.setLongitude(Double.parseDouble(document.getData().get("longitude").toString()));
+                        umkm.setProductImage((ArrayList<String>) document.get("productImage"));
 
                         FirebaseStorage.umkms.add(umkm);
                     }

@@ -1,6 +1,7 @@
 package com.example.hackathon2020binus;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.hackathon2020binus.Adapter.ProductImageAdapter;
 import com.example.hackathon2020binus.Fragment.ExploreFragment;
 import com.example.hackathon2020binus.Storage.FirebaseStorage;
 import com.example.hackathon2020binus.model.Umkm;
@@ -28,6 +30,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -44,6 +47,8 @@ public class DetailUmkmActivity extends AppCompatActivity implements OnMapReadyC
     FirebaseAuth firebaseAuth;
     private FirebaseFirestore db;
 
+    ArrayList<String> productImage;
+    ProductImageAdapter productImageAdapter;
     Double lat;
     Double lng;
     String nama="";
@@ -57,6 +62,8 @@ public class DetailUmkmActivity extends AppCompatActivity implements OnMapReadyC
         Intent intent = getIntent();
         init(intent);
         initGoogleMap(savedInstanceState);
+
+        detailActivity_rv_productImg.setLayoutManager(new LinearLayoutManager(this,RecyclerView.HORIZONTAL,false));
 
     }
 
@@ -96,6 +103,10 @@ public class DetailUmkmActivity extends AppCompatActivity implements OnMapReadyC
         lat = listUmkm.getLatitude();
         lng = listUmkm.getLongitude();
         nama = listUmkm.getNama();
+        productImage = listUmkm.getProductImage();
+
+        productImageAdapter = new ProductImageAdapter(this,productImage);
+        detailActivity_rv_productImg.setAdapter(productImageAdapter);
 
         if(listUmkm.getOpenToFranchise()==true){
             detailActivity_btn_franchise.setEnabled(true);
