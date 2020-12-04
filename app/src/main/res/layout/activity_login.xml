@@ -4,49 +4,182 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginActivity">
+    tools:context=".LoginActivity"
+    android:background="@drawable/bg_login">
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/appCompatButton"
+        android:layout_width="34dp"
+        android:layout_height="34dp"
+        android:background="@drawable/btn_back"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.044"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.02" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_bold"
+        android:text="Welcome\nBack"
+        android:textColor="@color/white"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.11"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appCompatButton"
+        app:layout_constraintVertical_bias="0.272" />
 
     <EditText
         android:id="@+id/login_et_email"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="E-mail address"
-        android:inputType="textPersonName"
-        tools:layout_editor_absoluteX="99dp"
-        tools:layout_editor_absoluteY="305dp" />
+        android:layout_width="331dp"
+        android:layout_height="38dp"
+        android:background="@drawable/custom_input"
+        android:drawableStart="@drawable/custom_email_icon"
+        android:drawablePadding="12dp"
+        android:fontFamily="@font/roboto_bold"
+        android:hint="E-mail Address"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:textSize="15dp"
+        android:textColor="@color/black"
+        android:textColorHint="@color/gray"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.612" />
 
     <EditText
         android:id="@+id/login_et_password"
+        android:layout_width="331dp"
+        android:layout_height="38dp"
+        android:background="@drawable/custom_input"
+        android:drawableStart="@drawable/custom_password_icon"
+        android:drawablePadding="12dp"
+        android:fontFamily="@font/roboto_bold"
+        android:hint="Password"
+        android:paddingStart="16dp"
+        android:paddingEnd="12dp"
+        android:textSize="15sp"
+        android:inputType="textPassword"
+        android:textColor="@color/black"
+        android:textColorHint="@color/gray"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/login_et_email"
+        app:layout_constraintVertical_bias="0.047" />
+
+    <TextView
+        android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Name"
-        tools:layout_editor_absoluteX="99dp"
-        tools:layout_editor_absoluteY="379dp" />
+        android:fontFamily="@font/roboto_bold"
+        android:text="Forgot Password?"
+        android:textColor="@color/blue"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.886"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/login_et_password"
+        app:layout_constraintVertical_bias="0.031" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/login_btn_signIn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Sign In"
-        tools:layout_editor_absoluteX="160dp"
-        tools:layout_editor_absoluteY="491dp" />
+        android:layout_width="331dp"
+        android:layout_height="43dp"
+        android:background="@drawable/btn_blue_nostroke"
+        android:fontFamily="@font/roboto_bold"
+        android:text="Log in"
+        android:textColor="@color/white"
+        android:textAllCaps="false"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:layout_constraintVertical_bias="0.058"
+        style="?android:attr/borderlessButtonStyle"/>
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/login_btn_continueWithGoogle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Continue With Google"
-        tools:layout_editor_absoluteX="106dp"
-        tools:layout_editor_absoluteY="548dp" />
+        android:layout_width="331dp"
+        android:layout_height="43dp"
+        android:background="@drawable/btn_google"
+        android:fontFamily="@font/roboto_bold"
+        android:text="Continue with google"
+        android:textAllCaps="false"
+        android:textSize="15sp"
+        android:drawableLeft="@drawable/icon_google"
+        android:textColor="@color/black"
+        android:paddingLeft="70dp"
+        android:paddingRight="70dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/login_btn_signIn"
+        app:layout_constraintVertical_bias="0.067"
+        style="?android:attr/borderlessButtonStyle"/>
 
-    <Button
-        android:id="@+id/login_btn_signUp"
+    <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Sign Up"
-        tools:layout_editor_absoluteX="160dp"
-        tools:layout_editor_absoluteY="616dp" />
+        android:layout_marginTop="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/login_btn_continueWithGoogle"
+        app:layout_constraintVertical_bias="0.0">
+
+        <ImageView
+            android:layout_width="149dp"
+            android:layout_height="2dp"
+            android:layout_gravity="center"
+            android:background="@drawable/line" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:fontFamily="@font/roboto_bold"
+            android:text="or"
+            android:textColor="@color/gray"
+            android:textSize="13sp" />
+
+        <ImageView
+            android:layout_width="149dp"
+            android:layout_height="2dp"
+            android:layout_gravity="center"
+            android:background="@drawable/line" />
+
+    </LinearLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/login_btn_signUp"
+        android:layout_width="331dp"
+        android:layout_height="43dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/btn_white_withstroke"
+        android:fontFamily="@font/roboto_bold"
+        android:text="Sign up"
+        android:textColor="@color/gray"
+        android:textSize="15sp"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        app:layout_constraintVertical_bias="0.0"
+        style="?android:attr/borderlessButtonStyle"/>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

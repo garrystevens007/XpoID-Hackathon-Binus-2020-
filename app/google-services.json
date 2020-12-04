@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "953080467930",
+    "firebase_url": "https://hackathon-9948d.firebaseio.com",
+    "project_id": "hackathon-9948d",
+    "storage_bucket": "hackathon-9948d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:953080467930:android:846711d96121f0fe7db0e3",
+        "android_client_info": {
+          "package_name": "com.example.hackathon2020binus"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "953080467930-8oc7jep8rsot1p0dfng4nv2pva8k36hf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBv27mt6sUz1hofvc3VkFrusZefAmUn5cI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "953080467930-8oc7jep8rsot1p0dfng4nv2pva8k36hf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
