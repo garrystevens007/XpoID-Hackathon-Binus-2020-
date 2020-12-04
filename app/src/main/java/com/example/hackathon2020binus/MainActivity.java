@@ -18,6 +18,8 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
 
     Button main_btn_login, main_btn_signup;
@@ -64,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
                 if (value.getString("name") != null) {
                     Log.d("Fragment Controller", "Snapshot : " + value.getString("name"));
                     FirebaseStorage.currUser = value.getString("name");
+                    //FirebaseStorage.savedUMKM =(ArrayList<String>) value.get("savedUMKM");
                 } else {
 
                 }

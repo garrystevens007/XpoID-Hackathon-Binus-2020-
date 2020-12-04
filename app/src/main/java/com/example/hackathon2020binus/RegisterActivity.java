@@ -12,6 +12,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.hackathon2020binus.Fragment.FragmentController;
+import com.example.hackathon2020binus.model.Notifications;
+import com.example.hackathon2020binus.model.Umkm;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -20,6 +22,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -112,12 +115,16 @@ public class RegisterActivity extends LoginActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isComplete()){
                     userID = firebaseAuth.getCurrentUser().getUid();
+                    ArrayList<Umkm> listUMKM = new ArrayList<Umkm>();
+                    ArrayList<Notifications> listNotif = new ArrayList<Notifications>();
                     DocumentReference documentReference = firebaseFirestore.collection("users").document(userID);
                     Map<String,Object> user = new HashMap<>();
+                    user.put("connection",0);
                     user.put("email",email);
-                    user.put("historyFranchise",0);
-                    user.put("historyPartnership",0);
-                    user.put("listNotif",0);
+                    user.put("historyFranchise",listUMKM);
+                    user.put("historyPartnership",listUMKM);
+                    user.put("savedUMKM",listUMKM);
+                    user.put("listNotif",listNotif);
                     user.put("name",fullname);
                     user.put("phone",phonenumber);
                     documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
