@@ -215,6 +215,7 @@ public class LoginActivity extends AppCompatActivity {
                     userID = firebaseAuth.getCurrentUser().getUid();
                     ArrayList<String> listUMKM = new ArrayList<String>();
                     ArrayList<String> listNotif = new ArrayList<String>();
+                    ArrayList<String> listSaved = new ArrayList<>();
                     DocumentReference documentReference = firebaseFirestore.collection("users").document(userID);
                     Map<String,Object> user = new HashMap<>();
                     if(isNewUser){
@@ -224,6 +225,7 @@ public class LoginActivity extends AppCompatActivity {
                         user.put("historyFranchise",listUMKM);
                         user.put("historyPartnership",listUMKM);
                         user.put("listNotif",listNotif);
+                        user.put("listSaved",listSaved);
                         user.put("name",firebaseAuth.getCurrentUser().getDisplayName());
                         user.put("phone",firebaseAuth.getCurrentUser().getPhoneNumber());
                         documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
