@@ -34,8 +34,6 @@ public class MainActivity extends AppCompatActivity {
         if(firebaseAuth.getCurrentUser()!=null){
             getInfo();
             Log.v("user",firebaseAuth.getCurrentUser().getEmail());
-            startActivity(new Intent(getApplicationContext(), FragmentController.class));
-            finish();
             return;
         }
         setContentView(R.layout.activity_main);
@@ -63,13 +61,15 @@ public class MainActivity extends AppCompatActivity {
         documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                if (value.getString("name") != null) {
-                    Log.d("Fragment Controller", "Snapshot : " + value.getString("name"));
-                    FirebaseStorage.currUser = value.getString("name");
-                    //FirebaseStorage.savedUMKM =(ArrayList<String>) value.get("savedUMKM");
-                } else {
+                Log.d("Fragment Controller", "Snapshot : " + value.getString("name"));
+                FirebaseStorage.currUser = value.getString("name");
+                FirebaseStorage.historyOpenFranchise = (ArrayList<String>) value.get("historyFranchise");
+                FirebaseStorage.historyOpenPartnership = (ArrayList<String>) value.get("historyPartnership");
+                FirebaseStorage.notifications = (ArrayList<String>) value.get("listNotif");
+                FirebaseStorage.savedUMKM = (ArrayList<String>) value.get("savedUMKM");
+                startActivity(new Intent(getApplicationContext(), FragmentController.class));
+                finish();
 
-                }
             }
         });
     }
