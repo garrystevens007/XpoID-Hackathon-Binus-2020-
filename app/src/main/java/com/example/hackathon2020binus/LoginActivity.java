@@ -169,7 +169,7 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private void getInfo() {
+    public void getInfo() {
         String currID = firebaseAuth.getCurrentUser().getUid();
         Log.d("HomeFragment", "Current User " + currID);
         DocumentReference documentReference = firebaseFirestore.collection("users").document(currID);

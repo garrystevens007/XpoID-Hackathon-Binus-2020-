@@ -53,6 +53,7 @@ public class FirebaseStorage {
                         umkm.setLatitude((Double) document.getData().get("latitude"));
                         umkm.setLongitude((Double) document.getData().get("longitude"));
 
+
                         umkms.add(umkm);
                     }
                 }
