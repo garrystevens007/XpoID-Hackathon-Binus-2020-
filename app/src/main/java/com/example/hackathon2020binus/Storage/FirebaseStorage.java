@@ -21,8 +21,11 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 
 public class FirebaseStorage {
-    public static ArrayList<Notifications> notifications = new ArrayList<>();
+    public static ArrayList<String> notifications = new ArrayList<>();
     public static ArrayList<PromotionItems> promoItems = new ArrayList<>();
+    public static ArrayList<String> historyOpenFranchise = new ArrayList<>();
+    public static ArrayList<String> historyOpenPartnership = new ArrayList<>();
+    public static ArrayList<String> savedUMKM = new ArrayList<>();
     public static ArrayList<Umkm> umkms = new ArrayList<>();
     public static String currUser;
 
