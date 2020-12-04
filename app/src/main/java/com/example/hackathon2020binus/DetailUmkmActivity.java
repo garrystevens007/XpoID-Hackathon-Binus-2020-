@@ -22,7 +22,14 @@ import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import static com.example.hackathon2020binus.Util.Constants.MAPVIEW_BUNDLE_KEY;
 
@@ -34,6 +41,7 @@ public class DetailUmkmActivity extends AppCompatActivity implements OnMapReadyC
             detailActivity_tv_omzet;
     MapView bisnisMap;
     RecyclerView detailActivity_rv_productImg;
+    FirebaseAuth firebaseAuth;
     private FirebaseFirestore db;
 
     Double lat;
@@ -64,6 +72,7 @@ public class DetailUmkmActivity extends AppCompatActivity implements OnMapReadyC
 
     private void init(Intent intent){
         db = FirebaseFirestore.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
         detailActivity_imgView_imgBisnis = findViewById(R.id.detailActivity_imgView_imgBisnis);
         detailActivity_btn_franchise = findViewById(R.id.detailActivity_btn_franchise);
         detailActivity_btn_partnership = findViewById(R.id.detailActivity_btn_partnership);
@@ -111,12 +120,27 @@ public class DetailUmkmActivity extends AppCompatActivity implements OnMapReadyC
             @Override
             public void onClick(View v) {
 
+                DocumentReference documentReference = db.collection("users").document(firebaseAuth.getCurrentUser().getUid());
+                documentReference.update("historyFranchise", FieldValue.arrayUnion(listUmkm.getId())).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(DetailUmkmActivity.this,"Successfully ask to franchise!",Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
 
         detailActivity_btn_partnership.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.d("tes woi","partnership tapped");
+                DocumentReference documentReference = db.collection("users").document(firebaseAuth.getCurrentUser().getUid());
+                documentReference.update("historyPartnership", FieldValue.arrayUnion(listUmkm.getId())).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(DetailUmkmActivity.this,"Successfully ask to partnership!",Toast.LENGTH_SHORT).show();
+                    }
+                });
 
             }
         });

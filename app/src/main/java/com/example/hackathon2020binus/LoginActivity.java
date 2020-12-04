@@ -15,6 +15,8 @@ import android.widget.Toast;
 
 import com.example.hackathon2020binus.Fragment.FragmentController;
 import com.example.hackathon2020binus.Storage.FirebaseStorage;
+import com.example.hackathon2020binus.model.Notifications;
+import com.example.hackathon2020binus.model.Umkm;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -33,6 +35,7 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -176,6 +179,10 @@ public class LoginActivity extends AppCompatActivity {
                 if (value.getString("name") != null) {
                     Log.d("Fragment Controller", "Snapshot : " + value.getString("name"));
                     FirebaseStorage.currUser = value.getString("name");
+                    FirebaseStorage.historyOpenFranchise = (ArrayList<String>) value.get("historyFranchise");
+                    FirebaseStorage.historyOpenPartnership = (ArrayList<String>) value.get("historyPartnership");
+                    FirebaseStorage.notifications = (ArrayList<String>) value.get("listNotif");
+                    FirebaseStorage.savedUMKM = (ArrayList<String>) value.get("savedUMKM");
                     startActivity(new Intent(getApplicationContext(), FragmentController.class));
                     finish();
                 }
@@ -204,21 +211,39 @@ public class LoginActivity extends AppCompatActivity {
             firebaseAuth.signInWithCredential(authCredential).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
+                    boolean isNewUser = task.getResult().getAdditionalUserInfo().isNewUser();
                     userID = firebaseAuth.getCurrentUser().getUid();
+                    ArrayList<String> listUMKM = new ArrayList<String>();
+                    ArrayList<String> listNotif = new ArrayList<String>();
                     DocumentReference documentReference = firebaseFirestore.collection("users").document(userID);
                     Map<String,Object> user = new HashMap<>();
-                    user.put("email",firebaseAuth.getCurrentUser().getEmail());
-                    user.put("historyFranchise",1);
-                    user.put("historyPartnership",0);
-                    user.put("listNotif",0);
-                    user.put("name",firebaseAuth.getCurrentUser().getDisplayName());
-                    user.put("phone",firebaseAuth.getCurrentUser().getPhoneNumber());
-                    documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-                            Log.d("Firebase ", "onSuccess: user profile is created " + userID);
-                        }
-                    });
+                    if(isNewUser){
+                        Log.d("Tag new "," new user");
+                        user.put("connection",0);
+                        user.put("email",firebaseAuth.getCurrentUser().getEmail());
+                        user.put("historyFranchise",listUMKM);
+                        user.put("historyPartnership",listUMKM);
+                        user.put("listNotif",listNotif);
+                        user.put("name",firebaseAuth.getCurrentUser().getDisplayName());
+                        user.put("phone",firebaseAuth.getCurrentUser().getPhoneNumber());
+                        documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Log.d("Firebase ", "onSuccess: user profile is created " + userID);
+                            }
+                        });
+                    }else{
+
+                        Log.d("Tag new ","bukan new user");
+//                        user.put("connection",0);
+//                        user.put("email",firebaseAuth.getCurrentUser().getEmail());
+//                        user.put("historyFranchise",FirebaseStorage.historyOpenFranchise);
+//                        user.put("historyPartnership",FirebaseStorage.historyOpenPartnership);
+//                        user.put("listNotif",FirebaseStorage.historyOpenPartnership);
+//                        user.put("name",firebaseAuth.getCurrentUser().getDisplayName());
+//                        user.put("phone",firebaseAuth.getCurrentUser().getPhoneNumber());
+                    }
+                    getInfo();
                     startActivity(new Intent(getApplicationContext(), FragmentController.class));
                 }
             });
