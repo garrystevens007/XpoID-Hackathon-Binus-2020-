@@ -69,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
                 FirebaseStorage.savedUMKM = (ArrayList<String>) value.get("savedUMKM");
                 startActivity(new Intent(getApplicationContext(), FragmentController.class));
                 finish();
+
             }
         });
     }

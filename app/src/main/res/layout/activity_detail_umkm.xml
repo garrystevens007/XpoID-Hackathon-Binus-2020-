@@ -70,17 +70,17 @@
                 app:layout_constraintTop_toBottomOf="@+id/detailActivity_imgView_imgBisnis"
                 app:layout_constraintVertical_bias="0.00999999" />
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/detailActivity_btn_save"
-                android:layout_width="26dp"
-                android:layout_height="26dp"
-                android:layout_marginEnd="20dp"
-                android:background="@drawable/icon_btn_unsaved"
-                app:layout_constraintBottom_toBottomOf="@+id/detailActivity_tv_title"
-                app:layout_constraintEnd_toEndOf="@+id/detailActivity_tv_title"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="@+id/detailActivity_tv_title"
-                app:layout_constraintTop_toTopOf="@+id/detailActivity_tv_title" />
+<!--            <androidx.appcompat.widget.AppCompatButton-->
+<!--                android:id="@+id/detailActivity_btn_save"-->
+<!--                android:layout_width="26dp"-->
+<!--                android:layout_height="26dp"-->
+<!--                android:layout_marginEnd="20dp"-->
+<!--                android:background="@drawable/icon_btn_unsaved"-->
+<!--                app:layout_constraintBottom_toBottomOf="@+id/detailActivity_tv_title"-->
+<!--                app:layout_constraintEnd_toEndOf="@+id/detailActivity_tv_title"-->
+<!--                app:layout_constraintHorizontal_bias="1.0"-->
+<!--                app:layout_constraintStart_toStartOf="@+id/detailActivity_tv_title"-->
+<!--                app:layout_constraintTop_toTopOf="@+id/detailActivity_tv_title" />-->
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/detailActivity_btn_unsave"
@@ -144,7 +144,7 @@ yang terjangkau"
                 android:id="@+id/textview12"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="15dp"
                 android:fontFamily="@font/roboto_bold"
                 android:paddingStart="24dp"
                 android:text="Omzet"
@@ -177,7 +177,7 @@ yang terjangkau"
                 android:id="@+id/textview13"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="15dp"
                 android:fontFamily="@font/roboto_bold"
                 android:paddingStart="24dp"
                 android:text="Gambar Produk"
@@ -193,9 +193,9 @@ yang terjangkau"
             <View
                 android:id="@+id/view"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
+                android:layout_height="120dp"
                 android:layout_marginTop="5dp"
-                android:background="@color/gray"
+                android:background="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.073"
@@ -206,7 +206,7 @@ yang terjangkau"
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/detailActivity_rv_productImg"
                 android:layout_width="wrap_content"
-                android:layout_height="100dp"
+                android:layout_height="120dp"
                 android:layout_marginTop="8dp"
                 app:layout_constraintBottom_toBottomOf="@+id/view"
                 app:layout_constraintEnd_toEndOf="@+id/view"
@@ -217,7 +217,7 @@ yang terjangkau"
                 android:id="@+id/textview14"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="15dp"
                 android:fontFamily="@font/roboto_bold"
                 android:paddingStart="24dp"
                 android:text="Location"
