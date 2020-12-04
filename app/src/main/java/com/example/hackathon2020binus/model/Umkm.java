@@ -8,6 +8,8 @@ import androidx.annotation.RequiresApi;
 
 import com.google.firebase.firestore.Exclude;
 
+import java.util.ArrayList;
+
 public class Umkm implements Parcelable {
 
     private String deksripsi;
@@ -20,6 +22,15 @@ public class Umkm implements Parcelable {
     private String phone;
     private Double latitude;
     private Double longitude;
+    private ArrayList<String> productImage;
+
+    public ArrayList<String> getProductImage() {
+        return productImage;
+    }
+
+    public void setProductImage(ArrayList<String> productImage) {
+        this.productImage = productImage;
+    }
 
     public Double getLatitude() {
         return latitude;
@@ -104,6 +115,19 @@ public class Umkm implements Parcelable {
         this.phone = phone;
     }
 
+    public Umkm(String deksripsi, String gambar, String id, String nama, Boolean openToFranchise, Boolean openToPartnership, String ownerName, String phone, Double latitude, Double longitude, ArrayList<String> productImage) {
+        this.deksripsi = deksripsi;
+        this.gambar = gambar;
+        this.id = id;
+        this.nama = nama;
+        this.openToFranchise = openToFranchise;
+        this.openToPartnership = openToPartnership;
+        this.ownerName = ownerName;
+        this.phone = phone;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.productImage = productImage;
+    }
 
     public Umkm(String deksripsi, String gambar, String id, String nama, Boolean openToFranchise, Boolean openToPartnership, String ownerName, String phone, Double latitude, Double longitude) {
         this.deksripsi = deksripsi;
@@ -150,6 +174,8 @@ public class Umkm implements Parcelable {
         dest.writeString(phone);
         dest.writeDouble(latitude);
         dest.writeDouble(longitude);
+        dest.writeList(productImage);
+
     }
 
     @RequiresApi(api = Build.VERSION_CODES.Q)
@@ -164,6 +190,7 @@ public class Umkm implements Parcelable {
         this.phone = in.readString();
         this.latitude = in.readDouble();
         this.longitude = in.readDouble();
+        this.productImage = in.readArrayList(String.class.getClassLoader());
     }
 
     public static final Parcelable.Creator<Umkm> CREATOR = new Parcelable.Creator<Umkm>(){
