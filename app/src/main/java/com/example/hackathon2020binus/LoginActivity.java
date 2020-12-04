@@ -225,7 +225,7 @@ public class LoginActivity extends AppCompatActivity {
                         user.put("historyFranchise",listUMKM);
                         user.put("historyPartnership",listUMKM);
                         user.put("listNotif",listNotif);
-                        user.put("listSaved",listSaved);
+                        user.put("savedUMKM",listSaved);
                         user.put("name",firebaseAuth.getCurrentUser().getDisplayName());
                         user.put("phone",firebaseAuth.getCurrentUser().getPhoneNumber());
                         documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
