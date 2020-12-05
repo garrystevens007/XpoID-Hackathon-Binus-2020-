@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -42,14 +43,19 @@ public class ExploreFragment extends Fragment {
 
     RecyclerView explore_rv_listUMKM;
     EditText explore_et_search;
+    TextView explore_tv_result;
     ArrayList<Umkm> listUmkm;
     ExploreAdapter exploreAdapter;
     FirebaseFirestore db;
+
+    String realTimeText = "";
+    char kutip = '"';
 
 
     private void init(View view){
         explore_rv_listUMKM = view.findViewById(R.id.explore_rv_listUMKM);
         explore_et_search = view.findViewById(R.id.explore_et_search);
+        explore_tv_result = view.findViewById(R.id.explore_tv_result);
         listUmkm = FirebaseStorage.umkms;
         exploreAdapter = new ExploreAdapter(getActivity(), listUmkm);
         explore_rv_listUMKM.setAdapter(exploreAdapter);
@@ -70,7 +76,11 @@ public class ExploreFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
+                realTimeText = explore_et_search.getText().toString();
+                explore_tv_result.setText(kutip+realTimeText+kutip);
+                if(realTimeText.equals("")){
+                    explore_tv_result.setText("");
+                }
             }
 
             @Override

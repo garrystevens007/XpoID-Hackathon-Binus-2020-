@@ -36,21 +36,41 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
-    <TextView
-        android:id="@+id/explore_tv_result"
+    <LinearLayout
+        android:id="@+id/LL"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:paddingStart="20dp"
-        android:text="Hasil pencarian"
-        android:textSize="15sp"
-        android:textColor="@color/dark_gray"
-        android:fontFamily="@font/roboto_bold"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view6"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.0"
+        android:paddingStart="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Hasil pencarian dari "
+            android:textSize="15sp"
+            android:textColor="@color/dark_gray"
+            android:fontFamily="@font/roboto_bold"
+            />
+
+        <TextView
+            android:id="@+id/explore_tv_result"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textSize="15sp"
+            android:layout_marginLeft="5dp"
+            android:textColor="@color/dark_gray"
+            android:fontFamily="@font/roboto_bold"
+            />
+
+    </LinearLayout>
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/explore_rv_listUMKM"
@@ -62,6 +82,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/explore_tv_result"
+        app:layout_constraintTop_toBottomOf="@+id/LL"
         app:layout_constraintVertical_bias="0.0" />
 </androidx.constraintlayout.widget.ConstraintLayout>

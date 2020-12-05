@@ -57,12 +57,12 @@ public class MainActivity extends AppCompatActivity {
     }
     private void getInfo() {
         String currID = firebaseAuth.getCurrentUser().getUid();
-        Log.d("HomeFragment", "Current User " + currID);
+//        Log.d("HomeFragment", "Current User " + currID);
         DocumentReference documentReference = firebaseFirestore.collection("users").document(currID);
         documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                Log.d("Fragment Controller", "Snapshot : " + value.getString("name"));
+//                Log.d("Fragment Controller", "Snapshot : " + value.getString("name"));
                 FirebaseStorage.currUser = value.getString("name");
                 FirebaseStorage.historyOpenFranchise = (ArrayList<String>) value.get("historyFranchise");
                 FirebaseStorage.historyOpenPartnership = (ArrayList<String>) value.get("historyPartnership");
@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void fetchSavedList(){
-        Log.d("Size array savedList ", " from firebaseStorage :" + FirebaseStorage.savedUMKM.size());
+//        Log.d("Size array savedList ", " from firebaseStorage :" + FirebaseStorage.savedUMKM.size());
         for(int i = 0; i < FirebaseStorage.savedUMKM.size(); i++){
             for(Umkm item : FirebaseStorage.umkms){
                 if(FirebaseStorage.savedUMKM.get(i).equals(item.getId())){
