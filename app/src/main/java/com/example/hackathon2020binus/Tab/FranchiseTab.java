@@ -31,10 +31,10 @@ import java.util.concurrent.Executor;
 
 public class FranchiseTab extends Fragment {
 
-    ExploreAdapter exploreAdapter;
+    public static ExploreAdapter exploreAdapter;
     FirebaseFirestore db;
     FirebaseAuth firebaseAuth;
-    RecyclerView tabFranchise_rv_savedFranchiseRv;
+    public static RecyclerView tabFranchise_rv_savedFranchiseRv;
     ArrayList<Umkm> listUmkm;
     int count;
 
@@ -61,41 +61,12 @@ public class FranchiseTab extends Fragment {
 
         return view;
     }
-    private void init(View view){
-        db = FirebaseFirestore.getInstance();
+    public static void init(View view){
         tabFranchise_rv_savedFranchiseRv = view.findViewById(R.id.TabFranchise_rv_savedFranchiseRv);
-        listUmkm = new ArrayList<>();
-        Log.d("hey",FirebaseStorage.historyOpenFranchise.toString());
-        count = 0;
-        for(String umkms : FirebaseStorage.historyOpenFranchise){
-            DocumentReference documentReference = db.collection("listUMKM").document(umkms);
-            count++;
-            Log.d("hey",umkms);
-            ListenerRegistration registration = documentReference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
-                @Override
-                public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                    Umkm umkm = new Umkm();
-                    umkm.setNama(value.getData().get("nama").toString());
-                    Log.d("hey nama",value.getData().get("nama").toString());
-                    umkm.setDeksripsi(value.getData().get("deskripsi").toString());
-                    umkm.setGambar(value.getData().get("gambar").toString());
-                    umkm.setId(value.getData().get("id").toString());
-                    umkm.setOpenToFranchise(Boolean.parseBoolean(value.getData().get("openToFranchise").toString()));
-                    umkm.setOpenToPartnership(Boolean.parseBoolean(value.getData().get("openToPartnership").toString()));
-                    umkm.setOwnerName(value.getData().get("ownerName").toString());
-                    umkm.setPhone(value.getData().get("phone").toString());
-                    umkm.setLatitude(Double.parseDouble(value.getData().get("latitude").toString()));
-                    umkm.setLongitude(Double.parseDouble(value.getData().get("longitude").toString()));
-                    listUmkm.add(umkm);
-                    if(count == FirebaseStorage.historyOpenFranchise.size()){
-                        ExploreAdapter exploreAdapter = new ExploreAdapter(getActivity(),listUmkm);
-                        tabFranchise_rv_savedFranchiseRv.setAdapter(exploreAdapter);
-                    }
-                }
-            });
-        }
-
-
-
+        Log.d("tes",tabFranchise_rv_savedFranchiseRv.toString());
+        exploreAdapter = new ExploreAdapter(FirebaseStorage.historyFranchise);
+        tabFranchise_rv_savedFranchiseRv.setAdapter(exploreAdapter);
+        exploreAdapter.notifyDataSetChanged();
     }
+
 }

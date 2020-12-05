@@ -90,6 +90,15 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
         }
     };
 
+    public void franchiseList(ArrayList<Umkm> umkms){
+        this.mUmkmList = umkms;
+        notifyDataSetChanged();
+    }
+    public void partnershipList(ArrayList<Umkm> umkms){
+        this.mUmkmList = umkms;
+        notifyDataSetChanged();
+    }
+
     public ExploreAdapter(ArrayList<Umkm> listUmkm){
         this.mUmkmList = listUmkm;
         fullList = new ArrayList<>(mUmkmList);
