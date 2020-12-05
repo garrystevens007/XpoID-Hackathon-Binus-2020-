@@ -76,7 +76,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void fetchSavedList(){
+
 //        Log.d("Size array savedList ", " from firebaseStorage :" + FirebaseStorage.savedUMKM.size());
+
+      
+
         for(int i = 0; i < FirebaseStorage.savedUMKM.size(); i++){
             for(Umkm item : FirebaseStorage.umkms){
                 if(FirebaseStorage.savedUMKM.get(i).equals(item.getId())){
