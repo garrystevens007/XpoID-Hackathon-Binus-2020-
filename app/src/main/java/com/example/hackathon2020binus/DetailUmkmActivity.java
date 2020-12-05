@@ -134,6 +134,17 @@ public class DetailUmkmActivity extends AppCompatActivity implements OnMapReadyC
             }
         });
 
+        for(int i = 0 ; i < FirebaseStorage.savedUMKM.size();i++){
+            if(FirebaseStorage.savedUMKM.get(i).equals(listUmkm.getId())){
+                index = i;
+                bool = false;
+                if(bool == false){
+                    detailActivity_btn_unsave.setBackgroundResource(R.drawable.icon_btn_saved);
+                }
+                break;
+            }
+        }
+
 
         detailActivity_btn_unsave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -153,12 +164,15 @@ public class DetailUmkmActivity extends AppCompatActivity implements OnMapReadyC
                         @Override
                         public void onSuccess(Void aVoid) {
                             Toast.makeText(DetailUmkmActivity.this,"Successfully added to saved",Toast.LENGTH_SHORT).show();
-                            Drawable saved = AppCompatResources.getDrawable(DetailUmkmActivity.this,R.drawable.icon_btn_unsaved);
-                            Drawable wrappedDrawable = DrawableCompat.wrap(saved);
-                            DrawableCompat.setTint(wrappedDrawable, Color.BLACK);
+//                            Drawable saved = AppCompatResources.getDrawable(DetailUmkmActivity.this,R.drawable.icon_btn_unsaved);
+//                            Drawable wrappedDrawable = DrawableCompat.wrap(saved);
+//                            DrawableCompat.setTint(wrappedDrawable, Color.BLACK);
+
+                            detailActivity_btn_unsave.setBackgroundResource(R.drawable.icon_btn_saved);
                         }
                     });
                 }else{
+
                     DocumentReference documentReference = db.collection("users").document(firebaseAuth.getCurrentUser().getUid());
                     documentReference.update("savedUMKM",FieldValue.arrayRemove(listUmkm.getId())).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
@@ -166,6 +180,9 @@ public class DetailUmkmActivity extends AppCompatActivity implements OnMapReadyC
                             FirebaseStorage.savedUMKM.remove(index);
                             FirebaseStorage.savedListUMKM.remove(index);
                             Toast.makeText(DetailUmkmActivity.this,"Remove index " + index,Toast.LENGTH_SHORT).show();
+
+                            detailActivity_btn_unsave.setBackgroundResource(R.drawable.icon_btn_unsaved);
+
                         }
                     });
 
