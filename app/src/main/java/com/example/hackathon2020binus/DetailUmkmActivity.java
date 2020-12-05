@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -123,6 +124,7 @@ public class DetailUmkmActivity extends AppCompatActivity implements OnMapReadyC
             detailActivity_btn_franchise.setEnabled(true);
 
         }else{
+            detailActivity_btn_franchise.setBackground(getDrawable(R.drawable.btn_disable));
             detailActivity_btn_franchise.setEnabled(false);
         }
 
@@ -130,6 +132,8 @@ public class DetailUmkmActivity extends AppCompatActivity implements OnMapReadyC
             detailActivity_btn_partnership.setEnabled(true);
         }else{
             detailActivity_btn_partnership.setEnabled(false);
+            detailActivity_btn_partnership.setBackgroundResource(R.drawable.btn_disable);
+            detailActivity_btn_partnership.setTextColor(getResources().getColor(R.color.white));
         }
 
         detailActivity_btn_back.setOnClickListener(new View.OnClickListener() {
