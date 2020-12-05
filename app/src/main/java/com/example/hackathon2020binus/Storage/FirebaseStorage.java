@@ -25,6 +25,8 @@ public class FirebaseStorage {
     public static ArrayList<PromotionItems> promoItems = new ArrayList<>();
     public static ArrayList<String> historyOpenFranchise = new ArrayList<>();
     public static ArrayList<String> historyOpenPartnership = new ArrayList<>();
+    public static ArrayList<Umkm> historyFranchise = new ArrayList<>();
+    public static ArrayList<Umkm> historyPartnership = new ArrayList<>();
     public static ArrayList<String> savedUMKM = new ArrayList<>();
     public static ArrayList<Umkm> umkms = new ArrayList<>();
     public static String currUser;
