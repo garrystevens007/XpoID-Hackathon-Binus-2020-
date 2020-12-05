@@ -49,7 +49,7 @@ public class HistoryFragment extends Fragment {
     private void init(View view) {
         tabLayout = view.findViewById(R.id.history_tabLayout);
         viewPager = view.findViewById(R.id.history_viewPager);
-        pageAdapter = new HistoryPageAdapter(getFragmentManager(),getContext());
+        pageAdapter = new HistoryPageAdapter(getChildFragmentManager(),getContext());
         tabLayout.setupWithViewPager(viewPager);
         viewPager.setAdapter(pageAdapter);
     }
