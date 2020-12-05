@@ -63,6 +63,7 @@ public class FranchiseTab extends Fragment {
     }
     public static void init(View view){
         tabFranchise_rv_savedFranchiseRv = view.findViewById(R.id.TabFranchise_rv_savedFranchiseRv);
+        Log.d("tes",tabFranchise_rv_savedFranchiseRv.toString());
         exploreAdapter = new ExploreAdapter(FirebaseStorage.historyFranchise);
         tabFranchise_rv_savedFranchiseRv.setAdapter(exploreAdapter);
         exploreAdapter.notifyDataSetChanged();

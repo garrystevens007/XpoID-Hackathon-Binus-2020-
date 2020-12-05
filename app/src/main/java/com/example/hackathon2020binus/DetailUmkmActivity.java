@@ -1,5 +1,6 @@
 package com.example.hackathon2020binus;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,6 +18,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.hackathon2020binus.Adapter.ProductImageAdapter;
 import com.example.hackathon2020binus.Fragment.ExploreFragment;
+import com.example.hackathon2020binus.Fragment.FragmentController;
 import com.example.hackathon2020binus.Storage.FirebaseStorage;
 import com.example.hackathon2020binus.model.Umkm;
 import com.google.android.gms.maps.GoogleMap;
@@ -27,8 +29,11 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -151,6 +156,7 @@ public class DetailUmkmActivity extends AppCompatActivity implements OnMapReadyC
                     @Override
                     public void onSuccess(Void aVoid) {
                         Toast.makeText(DetailUmkmActivity.this,"Successfully ask to franchise!",Toast.LENGTH_SHORT).show();
+                        getInfo();
                     }
                 });
             }
@@ -165,6 +171,7 @@ public class DetailUmkmActivity extends AppCompatActivity implements OnMapReadyC
                     @Override
                     public void onSuccess(Void aVoid) {
                         Toast.makeText(DetailUmkmActivity.this,"Successfully ask to partnership!",Toast.LENGTH_SHORT).show();
+                        getInfo();
                     }
                 });
 
@@ -187,6 +194,19 @@ public class DetailUmkmActivity extends AppCompatActivity implements OnMapReadyC
             }
         });
 
+    }
+    private void getInfo() {
+        String currID = firebaseAuth.getCurrentUser().getUid();
+        Log.d("HomeFragment", "Current User " + currID);
+        DocumentReference documentReference = db.collection("users").document(currID);
+        documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                Log.d("Fragment Controller", "Snapshot : " + value.getString("name"));
+                FirebaseStorage.historyOpenFranchise = (ArrayList<String>) value.get("historyFranchise");
+                FirebaseStorage.historyOpenPartnership = (ArrayList<String>) value.get("historyPartnership");
+            }
+        });
     }
 
     private void updateData(){

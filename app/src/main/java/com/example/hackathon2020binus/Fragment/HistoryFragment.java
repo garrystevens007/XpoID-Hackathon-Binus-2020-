@@ -53,6 +53,4 @@ public class HistoryFragment extends Fragment {
         tabLayout.setupWithViewPager(viewPager);
         viewPager.setAdapter(pageAdapter);
     }
-
-
 }

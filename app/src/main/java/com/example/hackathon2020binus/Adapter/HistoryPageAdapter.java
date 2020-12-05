@@ -102,6 +102,7 @@ public class HistoryPageAdapter extends FragmentPagerAdapter {
                     umkm.setPhone(value.getData().get("phone").toString());
                     umkm.setLatitude(Double.parseDouble(value.getData().get("latitude").toString()));
                     umkm.setLongitude(Double.parseDouble(value.getData().get("longitude").toString()));
+                    umkm.setProductImage((ArrayList<String>) value.get("productImage"));
                     FirebaseStorage.historyPartnership.add(umkm);
                     if(countPartnership == FirebaseStorage.historyOpenPartnership.size()){
                         PartnershipTab.exploreAdapter = new ExploreAdapter(context,FirebaseStorage.historyPartnership);
@@ -134,9 +135,11 @@ public class HistoryPageAdapter extends FragmentPagerAdapter {
                     umkm.setPhone(value.getData().get("phone").toString());
                     umkm.setLatitude(Double.parseDouble(value.getData().get("latitude").toString()));
                     umkm.setLongitude(Double.parseDouble(value.getData().get("longitude").toString()));
+                    umkm.setProductImage((ArrayList<String>) value.get("productImage"));
                     FirebaseStorage.historyFranchise.add(umkm);
                     if(countFranchise == FirebaseStorage.historyOpenFranchise.size()){
                         FranchiseTab.exploreAdapter = new ExploreAdapter(context,FirebaseStorage.historyFranchise);
+                        Log.d("Tes",tabFranchise_rv_savedFranchiseRv.toString());
                         tabFranchise_rv_savedFranchiseRv.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false));
                         tabFranchise_rv_savedFranchiseRv.setAdapter(FranchiseTab.exploreAdapter);
                         FranchiseTab.exploreAdapter.notifyDataSetChanged();
