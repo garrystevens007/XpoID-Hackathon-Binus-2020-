@@ -1,10 +1,14 @@
 package com.example.hackathon2020binus;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.content.res.AppCompatResources;
+import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.util.Log;
@@ -52,6 +56,8 @@ public class DetailUmkmActivity extends AppCompatActivity implements OnMapReadyC
     Double lat;
     Double lng;
     String nama="";
+    boolean bool = false;
+    Integer index = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,17 +134,59 @@ public class DetailUmkmActivity extends AppCompatActivity implements OnMapReadyC
             }
         });
 
+        for(int i = 0 ; i < FirebaseStorage.savedUMKM.size();i++){
+            if(FirebaseStorage.savedUMKM.get(i).equals(listUmkm.getId())){
+                index = i;
+                bool = false;
+                if(bool == false){
+                    detailActivity_btn_unsave.setBackgroundResource(R.drawable.icon_btn_saved);
+                }
+                break;
+            }
+        }
+
 
         detailActivity_btn_unsave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DocumentReference documentReference = db.collection("users").document(firebaseAuth.getCurrentUser().getUid());
-                documentReference.update("savedUMKM", FieldValue.arrayUnion(listUmkm.getId())).addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Toast.makeText(DetailUmkmActivity.this,"Successfully added to saved",Toast.LENGTH_SHORT).show();
+                bool = true;
+                index = null;
+                for(int i = 0 ; i < FirebaseStorage.savedUMKM.size();i++){
+                    if(FirebaseStorage.savedUMKM.get(i).equals(listUmkm.getId())){
+                        index = i;
+                        bool = false;
+                        break;
                     }
-                });
+                }
+                if(bool == true){
+                    DocumentReference documentReference = db.collection("users").document(firebaseAuth.getCurrentUser().getUid());
+                    documentReference.update("savedUMKM", FieldValue.arrayUnion(listUmkm.getId())).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Toast.makeText(DetailUmkmActivity.this,"Successfully added to saved",Toast.LENGTH_SHORT).show();
+//                            Drawable saved = AppCompatResources.getDrawable(DetailUmkmActivity.this,R.drawable.icon_btn_unsaved);
+//                            Drawable wrappedDrawable = DrawableCompat.wrap(saved);
+//                            DrawableCompat.setTint(wrappedDrawable, Color.BLACK);
+
+                            detailActivity_btn_unsave.setBackgroundResource(R.drawable.icon_btn_saved);
+                        }
+                    });
+                }else{
+
+                    DocumentReference documentReference = db.collection("users").document(firebaseAuth.getCurrentUser().getUid());
+                    documentReference.update("savedUMKM",FieldValue.arrayRemove(listUmkm.getId())).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            FirebaseStorage.savedUMKM.remove(index);
+                            FirebaseStorage.savedListUMKM.remove(index);
+                            Toast.makeText(DetailUmkmActivity.this,"Remove index " + index,Toast.LENGTH_SHORT).show();
+
+                            detailActivity_btn_unsave.setBackgroundResource(R.drawable.icon_btn_unsaved);
+
+                        }
+                    });
+
+                }
             }
         });
 

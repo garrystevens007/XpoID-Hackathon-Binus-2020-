@@ -75,8 +75,9 @@ public class SavedFragment extends Fragment {
                 }
             }
         }
+        //savedAdapter.savedList(FirebaseStorage.savedListUMKM);
         savedAdapter.savedList(dipsList);
-        Log.d("Size array savedList : ", " " + dipsList.size());
+        Log.d("Size array savedList : ", " " + FirebaseStorage.savedListUMKM);
     }
 
     private void fetchUserData(){
