@@ -11,6 +11,7 @@ import android.widget.Button;
 
 import com.example.hackathon2020binus.Fragment.FragmentController;
 import com.example.hackathon2020binus.Storage.FirebaseStorage;
+import com.example.hackathon2020binus.model.Umkm;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -67,11 +68,23 @@ public class MainActivity extends AppCompatActivity {
                 FirebaseStorage.historyOpenPartnership = (ArrayList<String>) value.get("historyPartnership");
                 FirebaseStorage.notifications = (ArrayList<String>) value.get("listNotif");
                 FirebaseStorage.savedUMKM = (ArrayList<String>) value.get("savedUMKM");
+                fetchSavedList();
                 startActivity(new Intent(getApplicationContext(), FragmentController.class));
                 finish();
-
             }
         });
+    }
+
+    private void fetchSavedList(){
+        Log.d("Size array savedList ", " from firebaseStorage :" + FirebaseStorage.savedUMKM.size());
+        for(int i = 0; i < FirebaseStorage.savedUMKM.size(); i++){
+            for(Umkm item : FirebaseStorage.umkms){
+                if(FirebaseStorage.savedUMKM.get(i).equals(item.getId())){
+                    FirebaseStorage.savedListUMKM.add(item);
+                    break;
+                }
+            }
+        }
     }
 
     void init(){

@@ -1,6 +1,7 @@
 package com.example.hackathon2020binus.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.hackathon2020binus.DetailUmkmActivity;
 import com.example.hackathon2020binus.R;
 import com.example.hackathon2020binus.model.Umkm;
 
@@ -52,7 +54,7 @@ public class SavedAdapter extends RecyclerView.Adapter<SavedAdapter.ViewHolder> 
         notifyDataSetChanged();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         TextView rectangle_tv_title, rectangle_tv_desc;
         ImageView rectangle_img_logo;
@@ -62,6 +64,21 @@ public class SavedAdapter extends RecyclerView.Adapter<SavedAdapter.ViewHolder> 
             rectangle_tv_title = itemView.findViewById(R.id.rectangle_tv_title);
             rectangle_tv_desc = itemView.findViewById(R.id.rectangle_tv_desc);
             rectangle_img_logo = itemView.findViewById(R.id.rectangle_img_logo);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent i = new Intent(itemView.getContext(), DetailUmkmActivity.class);
+                    i.putExtra("selectedUmkm", mUmkmList.get(getLayoutPosition()));
+                    ctx.startActivity(i);
+                }
+            });
+
+        }
+
+        @Override
+        public void onClick(View v) {
+
         }
     }
 

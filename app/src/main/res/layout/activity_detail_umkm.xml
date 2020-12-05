@@ -87,7 +87,7 @@
                 android:layout_width="26dp"
                 android:layout_height="26dp"
                 android:layout_marginEnd="20dp"
-                android:background="@drawable/icon_btn_saved"
+                android:background="@drawable/icon_btn_unsaved"
                 app:layout_constraintBottom_toBottomOf="@+id/detailActivity_tv_title"
                 app:layout_constraintEnd_toEndOf="@+id/detailActivity_tv_title"
                 app:layout_constraintHorizontal_bias="1.0"
