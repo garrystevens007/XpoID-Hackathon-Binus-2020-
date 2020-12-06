@@ -1,12 +1,15 @@
 package com.example.hackathon2020binus;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.graphics.drawable.DrawableCompat;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -206,30 +209,62 @@ public class DetailUmkmActivity extends AppCompatActivity implements OnMapReadyC
             @Override
             public void onClick(View v) {
 
-                DocumentReference documentReference = db.collection("users").document(firebaseAuth.getCurrentUser().getUid());
-                documentReference.update("historyFranchise", FieldValue.arrayUnion(listUmkm.getId())).addOnSuccessListener(new OnSuccessListener<Void>() {
+                AlertDialog.Builder alert = new AlertDialog.Builder(DetailUmkmActivity.this);
+                alert.setTitle("Ask to Franchise ?");
+                alert.setMessage("Are you sure want to ask to franchise ?");
+                alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
-                    public void onSuccess(Void aVoid) {
-                        Toast.makeText(DetailUmkmActivity.this,"Successfully ask to franchise!",Toast.LENGTH_SHORT).show();
-                        getInfo();
+                    public void onClick(DialogInterface dialog, int which) {
+                        DocumentReference documentReference = db.collection("users").document(firebaseAuth.getCurrentUser().getUid());
+                        documentReference.update("historyFranchise", FieldValue.arrayUnion(listUmkm.getId())).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Toast.makeText(DetailUmkmActivity.this,"Successfully ask to franchise!",Toast.LENGTH_SHORT).show();
+                                getInfo();
+                            }
+                        });
                     }
-                });
+                })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        });
+                AlertDialog alertDialog = alert.create();
+                alertDialog.show();
             }
         });
 
         detailActivity_btn_partnership.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("tes woi","partnership tapped");
-                DocumentReference documentReference = db.collection("users").document(firebaseAuth.getCurrentUser().getUid());
-                documentReference.update("historyPartnership", FieldValue.arrayUnion(listUmkm.getId())).addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Toast.makeText(DetailUmkmActivity.this,"Successfully ask to partnership!",Toast.LENGTH_SHORT).show();
-                        getInfo();
-                    }
-                });
 
+                AlertDialog.Builder alert = new AlertDialog.Builder(DetailUmkmActivity.this);
+                alert.setTitle("Ask to partnership ?");
+                alert.setMessage("Are you sure want to ask to partnership ?");
+                alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        DocumentReference documentReference = db.collection("users").document(firebaseAuth.getCurrentUser().getUid());
+                        documentReference.update("historyPartnership", FieldValue.arrayUnion(listUmkm.getId())).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Toast.makeText(DetailUmkmActivity.this,"Successfully ask to partnership!",Toast.LENGTH_SHORT).show();
+                                getInfo();
+                            }
+                        });
+                    }
+
+                })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        });
+                AlertDialog alertDialog = alert.create();
+                alertDialog.show();
             }
         });
 
