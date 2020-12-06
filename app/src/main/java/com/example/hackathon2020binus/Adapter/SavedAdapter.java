@@ -70,6 +70,7 @@ public class SavedAdapter extends RecyclerView.Adapter<SavedAdapter.ViewHolder> 
                 public void onClick(View v) {
                     Intent i = new Intent(itemView.getContext(), DetailUmkmActivity.class);
                     i.putExtra("selectedUmkm", mUmkmList.get(getLayoutPosition()));
+                    i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     ctx.startActivity(i);
                 }
             });

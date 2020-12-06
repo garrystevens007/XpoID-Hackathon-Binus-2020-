@@ -36,8 +36,8 @@ import java.util.ArrayList;
 
 public class SavedFragment extends Fragment {
 
-    RecyclerView saved_rv_listUMKM;
-    SavedAdapter savedAdapter;
+    public static RecyclerView saved_rv_listUMKM;
+    public static SavedAdapter savedAdapter;
     private ArrayList<Umkm> dipsList;
     FirebaseFirestore db;
     FirebaseAuth firebaseAuth;
