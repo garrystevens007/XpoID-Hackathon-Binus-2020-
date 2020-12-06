@@ -22,8 +22,10 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.hackathon2020binus.Adapter.ProductImageAdapter;
+import com.example.hackathon2020binus.Adapter.SavedAdapter;
 import com.example.hackathon2020binus.Fragment.ExploreFragment;
 import com.example.hackathon2020binus.Fragment.FragmentController;
+import com.example.hackathon2020binus.Fragment.SavedFragment;
 import com.example.hackathon2020binus.Storage.FirebaseStorage;
 import com.example.hackathon2020binus.model.Umkm;
 import com.google.android.gms.maps.GoogleMap;
@@ -39,6 +41,7 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.ListenerRegistration;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -181,17 +184,21 @@ public class DetailUmkmActivity extends AppCompatActivity implements OnMapReadyC
                         }
                     });
                 }else{
-
                     DocumentReference documentReference = db.collection("users").document(firebaseAuth.getCurrentUser().getUid());
                     documentReference.update("savedUMKM",FieldValue.arrayRemove(listUmkm.getId())).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
+
                             FirebaseStorage.savedUMKM.remove(index);
                             FirebaseStorage.savedListUMKM.remove(index);
-                            Toast.makeText(DetailUmkmActivity.this,"Remove index " + index,Toast.LENGTH_SHORT).show();
+                            fetchUserData();
+                            SavedFragment.savedAdapter = new SavedAdapter(getApplicationContext(),FirebaseStorage.savedListUMKM);
+                            SavedFragment.saved_rv_listUMKM.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+                            SavedFragment.saved_rv_listUMKM.setAdapter(SavedFragment.savedAdapter);
+                            SavedFragment.savedAdapter.notifyDataSetChanged();
+                            Toast.makeText(DetailUmkmActivity.this,"Item successfully removed!",Toast.LENGTH_SHORT).show();
 
                             detailActivity_btn_unsave.setBackgroundResource(R.drawable.icon_btn_unsaved);
-
                         }
                     });
 
@@ -263,6 +270,29 @@ public class DetailUmkmActivity extends AppCompatActivity implements OnMapReadyC
 
     private void updateData(){
         
+    }
+
+    private void fetchUserData(){
+        String currID;
+        FirebaseStorage.savedUMKM = new ArrayList<>();
+        FirebaseStorage.savedListUMKM = new ArrayList<>();
+        currID = firebaseAuth.getCurrentUser().getUid();
+        DocumentReference documentReference = db.collection("users").document(currID);
+        ListenerRegistration registration = documentReference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                FirebaseStorage.savedUMKM = (ArrayList<String>) value.get("savedUMKM");
+                for(int i = 0; i < FirebaseStorage.savedUMKM.size(); i++){
+                    for(Umkm item : FirebaseStorage.umkms){
+                        if(FirebaseStorage.savedUMKM.get(i).equals(item.getId())){
+                            FirebaseStorage.savedListUMKM.add(item);
+                            break;
+                        }
+                    }
+                }
+                Log.d("PRINT","LIST OF SAVED UMKM : " + FirebaseStorage.savedUMKM);
+            }
+        });
     }
 
     @Override
