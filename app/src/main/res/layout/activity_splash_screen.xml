@@ -4,14 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SplashScreen.SplashScreen">
+    tools:context=".SplashScreen.SplashScreen"
+    android:background="@color/blue">
 
-    <TextView
-        android:id="@+id/textView12"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Fetching Data"
-        android:textSize="30sp"
+    <ImageView
+        android:layout_width="166dp"
+        android:layout_height="83dp"
+        android:background="@drawable/app_logo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
