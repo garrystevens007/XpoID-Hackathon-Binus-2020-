@@ -75,29 +75,47 @@ public class LoginActivity extends AppCompatActivity {
                 String validateEmail = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
                 email = login_et_email.getText().toString().trim();
                 password = login_et_password.getText().toString().trim();
-                mLoadingBar.setTitle("Loging in");
-                mLoadingBar.setMessage("Please wait, while check your credentials");
-                mLoadingBar.setCanceledOnTouchOutside(false);
-                mLoadingBar.show();
 
-                if(email.equals("")){
+                if(email.isEmpty() && password.isEmpty()){
                     login_et_email.setError("Email is required");
+                    login_et_password.setError("Password required !");
                     return;
-                }else{
+                }
+                else if(email.isEmpty() || password.isEmpty()){
+                    if(email.equals("")){
+                        login_et_email.setError("Email is required");
+                        return;
+                    }else{
+                        if(!email.matches(validateEmail)){
+                            login_et_email.setError("Wrong format !");
+                            return;
+                        }
+                    }
+                    if(password.equals("")){
+                        login_et_password.setError("Password required !");
+                        return;
+                    }else{
+                        if(password.length() < 6){
+                            login_et_password.setError("Password >= 6");
+                            return;
+                        }
+                    }
+                }else {
                     if(!email.matches(validateEmail)){
                         login_et_email.setError("Wrong format !");
                         return;
                     }
-                }
-                if(password.equals("")){
-                    login_et_password.setError("Password required !");
-                    return;
-                }else{
                     if(password.length() < 6){
                         login_et_password.setError("Password >= 6");
                         return;
                     }
+                    mLoadingBar.setTitle("Loging in");
+                    mLoadingBar.setMessage("Please wait, while check your credentials");
+                    mLoadingBar.setCanceledOnTouchOutside(false);
+                    mLoadingBar.show();
                 }
+
+
                 Log.d("Email", "onClick: " + email);
                 Log.d("Password", "onClick: " + password);
 
@@ -164,6 +182,7 @@ public class LoginActivity extends AppCompatActivity {
                     getInfo();
                 }else{
                     Toast.makeText(LoginActivity.this, "Error !", Toast.LENGTH_SHORT).show();
+                    return;
                 }
             }
         });
