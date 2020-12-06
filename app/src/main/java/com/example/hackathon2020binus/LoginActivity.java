@@ -128,7 +128,6 @@ public class LoginActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
-
     }
 
 

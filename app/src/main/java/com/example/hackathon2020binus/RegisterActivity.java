@@ -1,8 +1,10 @@
 package com.example.hackathon2020binus;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -63,6 +65,7 @@ public class RegisterActivity extends LoginActivity {
         register_btn_signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Toast.makeText(RegisterActivity.this, " Entering register", Toast.LENGTH_SHORT).show();
                 email = register_et_email.getText().toString().trim();
                 fullname = register_et_fullname.getText().toString().trim();
                 phonenumber = register_et_phonenumber.getText().toString().trim();
@@ -71,6 +74,15 @@ public class RegisterActivity extends LoginActivity {
                 String regex = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
                 if(email.isEmpty() || fullname.isEmpty()||phonenumber.isEmpty()||pass.isEmpty()||confirmpass.isEmpty()){
                     //alert here
+                    AlertDialog.Builder alert = new AlertDialog.Builder(RegisterActivity.this);
+                    alert.setTitle("Login error !");
+                    alert.setMessage("You must fill all the boxes! ");
+                    alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    });
                     return;
                 }
 
@@ -78,22 +90,28 @@ public class RegisterActivity extends LoginActivity {
                     Log.d("Email","Pass!");
                 }
                 else {
-                    Log.d("Email","Does not pass!");
+//                    Log.d("Email","Does not pass!");
+                    register_et_email.setError("Invalid email format!");
                     return;//alert here
                 }
 
                 if(pass.length() < 8) {
                     //alert here
+                    register_et_pass.setError("Min 8 character");
                     return;
                 }
 
                 if(confirmpass.length() < 8){
                     //alert here
+                    register_et_confirmpass.setError("Min 8 character");
                     return;
                 }
 
                 if(confirmpass.equals(pass))Log.d("Pass","Pass!");
-                else return;//alert here
+                else{
+                    register_et_confirmpass.setError("Password not same !");
+                    return;//alert here
+                }
 
 
                 registerFirebase(email,pass);
