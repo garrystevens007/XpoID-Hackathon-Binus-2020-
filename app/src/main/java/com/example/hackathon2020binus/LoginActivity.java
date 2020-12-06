@@ -2,9 +2,11 @@ package com.example.hackathon2020binus;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -115,10 +117,8 @@ public class LoginActivity extends AppCompatActivity {
                     mLoadingBar.show();
                 }
 
-
                 Log.d("Email", "onClick: " + email);
                 Log.d("Password", "onClick: " + password);
-
 
                 inputDataFirebase(email,password);
                 //startActivity(new Intent(getApplicationContext(), FragmentController.class));
@@ -180,8 +180,19 @@ public class LoginActivity extends AppCompatActivity {
                 if(task.isSuccessful()){
                     getInfo();
                 }else{
-                    Toast.makeText(LoginActivity.this, "Error !", Toast.LENGTH_SHORT).show();
-                    return;
+//                    Toast.makeText(LoginActivity.this, "Error !", Toast.LENGTH_SHORT).show();
+                    AlertDialog.Builder alert = new AlertDialog.Builder(LoginActivity.this);
+                    alert.setTitle("Login error !");
+                    alert.setMessage("Your Email or Password is invalid");
+                    alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    });
+                    AlertDialog alertDialog = alert.create();
+                    alert.show();
+                    mLoadingBar.dismiss();
                 }
             }
         });
