@@ -97,7 +97,7 @@ public class RegisterActivity extends LoginActivity {
 
 
                 registerFirebase(email,pass);
-                startActivity(new Intent(getApplicationContext(), FragmentController.class));
+                startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
                 Log.d("Firebase : ","is Created!");
             }
         });
@@ -110,13 +110,14 @@ public class RegisterActivity extends LoginActivity {
     }
 
     public void registerFirebase(final String email, String password){
+
         firebaseAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isComplete()){
-                    userID = firebaseAuth.getCurrentUser().getUid();
-                    ArrayList<Umkm> listUMKM = new ArrayList<Umkm>();
-                    ArrayList<Notifications> listNotif = new ArrayList<Notifications>();
+                    String userID = firebaseAuth.getCurrentUser().getUid();
+                    ArrayList<Umkm> listUMKM = new ArrayList<>();
+                    ArrayList<Notifications> listNotif = new ArrayList<>();
                     DocumentReference documentReference = firebaseFirestore.collection("users").document(userID);
                     Map<String,Object> user = new HashMap<>();
                     user.put("connection",0);
@@ -130,7 +131,7 @@ public class RegisterActivity extends LoginActivity {
                     documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
-                            Log.d("Firebase ", "onSuccess: user profile is created " + userID);
+                            Log.d("Firebase ", "onSuccess: user profile is created");
                         }
                     });
                     Toast.makeText(RegisterActivity.this, "Success Register", Toast.LENGTH_SHORT).show();

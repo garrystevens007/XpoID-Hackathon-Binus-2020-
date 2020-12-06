@@ -173,10 +173,6 @@ public class DetailUmkmActivity extends AppCompatActivity implements OnMapReadyC
                         @Override
                         public void onSuccess(Void aVoid) {
                             Toast.makeText(DetailUmkmActivity.this,"Successfully added to saved",Toast.LENGTH_SHORT).show();
-//                            Drawable saved = AppCompatResources.getDrawable(DetailUmkmActivity.this,R.drawable.icon_btn_unsaved);
-//                            Drawable wrappedDrawable = DrawableCompat.wrap(saved);
-//                            DrawableCompat.setTint(wrappedDrawable, Color.BLACK);
-
                             detailActivity_btn_unsave.setBackgroundResource(R.drawable.icon_btn_saved);
                         }
                     });
@@ -259,10 +255,6 @@ public class DetailUmkmActivity extends AppCompatActivity implements OnMapReadyC
                 FirebaseStorage.historyOpenPartnership = (ArrayList<String>) value.get("historyPartnership");
             }
         });
-    }
-
-    private void updateData(){
-        
     }
 
     @Override

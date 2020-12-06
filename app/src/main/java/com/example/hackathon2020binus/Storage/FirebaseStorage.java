@@ -30,6 +30,9 @@ public class FirebaseStorage {
     public static ArrayList<String> savedUMKM = new ArrayList<>();
     public static ArrayList<Umkm> savedListUMKM = new ArrayList<>();
     public static ArrayList<Umkm> umkms = new ArrayList<>();
+    public static Integer statPartnership = 0;
+    public static Integer statFranchise = 0;
+    public static Integer statConnection = 0;
     public static String currUser;
 
     private void fetchData() {

@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -31,6 +32,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -54,6 +56,9 @@ public class HomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         init(view);
+        getStatistic();
+        putToLocal();
+
         homeFr_tv_user_name.setText(FirebaseStorage.currUser);
         homeFr_rv_bisnis_terbaru.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
         homeFr_rv_rekomendasi_bisnis.setLayoutManager(new LinearLayoutManager(getActivity(),RecyclerView.VERTICAL,false));
@@ -61,21 +66,6 @@ public class HomeFragment extends Fragment {
         return view;
     }
 
-    //getnama masih error
-
-//        documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-//            @Override
-//            public void onSuccess(DocumentSnapshot documentSnapshot) {
-//                if(documentSnapshot.exists()){
-//                    name = documentSnapshot.getString("users");
-//                    homeFr_tv_user_name.setText(name);
-//                    Log.d("HomeFragment","Current User name " + name);
-//                }else{
-//                    Log.d("Document", " : Does not exists!");
-//                }
-//            }
-//        });
- //   }
 
     private void init(View view){
         homeFr_tv_user_name = view.findViewById(R.id.homeFr_tv_user_name);
@@ -99,5 +89,30 @@ public class HomeFragment extends Fragment {
 
         homeFrPromotionAdapter = new HomeFrPromotionAdapter(getActivity(),promoItems);
         homeFr_rv_promotion.setAdapter(homeFrPromotionAdapter);
+    }
+
+    private void putToLocal(){
+        //Toast.makeText(getActivity(),"Put local is called",Toast.LENGTH_SHORT).show();
+        getStatistic();
+        int localStatPart = FirebaseStorage.historyOpenFranchise.size(),
+                localStatFran = FirebaseStorage.historyOpenPartnership.size(),
+                localStatConn = FirebaseStorage.statConnection;
+        homeFr_tv_total_franchise.setText(String.valueOf(localStatFran));
+        homeFr_tv_total_partnerships.setText(String.valueOf(localStatPart));
+        homeFr_tv_total_connection.setText(String.valueOf(localStatConn));
+    }
+
+    private void getStatistic(){
+        String currID = firebaseAuth.getCurrentUser().getUid();
+        Log.d("HomeFragment", "Current User " + currID);
+        DocumentReference documentReference = firebaseFirestore.collection("users").document(currID);
+        ListenerRegistration registration =  documentReference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                Log.d("Fragment Controller", "Snapshot : " + value.getString("name"));
+                FirebaseStorage.historyOpenFranchise = (ArrayList<String>) value.get("historyFranchise");
+                FirebaseStorage.historyOpenPartnership = (ArrayList<String>) value.get("historyPartnership");
+            }
+        });
     }
 }
