@@ -173,6 +173,7 @@ public class DetailUmkmActivity extends AppCompatActivity implements OnMapReadyC
                         break;
                     }
                 }
+
                 if(bool == true){
                     DocumentReference documentReference = db.collection("users").document(firebaseAuth.getCurrentUser().getUid());
                     documentReference.update("savedUMKM", FieldValue.arrayUnion(listUmkm.getId())).addOnSuccessListener(new OnSuccessListener<Void>() {

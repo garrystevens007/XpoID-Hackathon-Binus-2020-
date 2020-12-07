@@ -1,16 +1,19 @@
 package com.example.hackathon2020binus.Fragment;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.hackathon2020binus.Adapter.ExploreAdapter;
 import com.example.hackathon2020binus.Adapter.HomeFrBisnisBaruAdapter;
 import com.example.hackathon2020binus.Adapter.HomeFrPromotionAdapter;
+import com.example.hackathon2020binus.LoginActivity;
 import com.example.hackathon2020binus.R;
 import com.example.hackathon2020binus.Storage.FirebaseStorage;
 import com.example.hackathon2020binus.model.PromotionItems;
@@ -44,6 +48,7 @@ public class HomeFragment extends Fragment {
     ImageView circleImageView;
     RecyclerView homeFr_rv_bisnis_terbaru,homeFr_rv_promotion,homeFr_rv_rekomendasi_bisnis;
     ArrayList<Umkm> listUmkm;
+    Button homeFr_btn_notification;
     ArrayList<PromotionItems> promoItems;
     HomeFrBisnisBaruAdapter homeFrBisnisBaruAdapter;
     HomeFrPromotionAdapter homeFrPromotionAdapter;
@@ -60,6 +65,24 @@ public class HomeFragment extends Fragment {
         putToLocal();
 
         homeFr_tv_user_name.setText(FirebaseStorage.currUser);
+
+        homeFr_btn_notification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
+                alert.setTitle("Notifications");
+                alert.setMessage("Feature coming soon!");
+                alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                AlertDialog alertDialog = alert.create();
+                alert.show();
+            }
+        });
+
         homeFr_rv_bisnis_terbaru.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
         homeFr_rv_rekomendasi_bisnis.setLayoutManager(new LinearLayoutManager(getActivity(),RecyclerView.VERTICAL,false));
         homeFr_rv_promotion.setLayoutManager(new LinearLayoutManager(getActivity(),RecyclerView.HORIZONTAL,false));
@@ -77,6 +100,7 @@ public class HomeFragment extends Fragment {
         homeFr_rv_rekomendasi_bisnis = view.findViewById(R.id.homeFr_rv_rekomendasi_bisnis);
        // homeFr_rv_rekomendasi_bisnis.setNestedScrollingEnabled(false);
         circleImageView = view.findViewById(R.id.circleImageView);
+        homeFr_btn_notification = view.findViewById(R.id.homeFr_btn_notification);
         listUmkm = FirebaseStorage.umkms;
 
         promoItems = FirebaseStorage.promoItems;

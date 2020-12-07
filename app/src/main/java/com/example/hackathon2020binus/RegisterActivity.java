@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -35,10 +36,14 @@ public class RegisterActivity extends LoginActivity {
     FirebaseAuth firebaseAuth;
     FirebaseFirestore firebaseFirestore;
     private String userID, email, fullname, phonenumber, pass, confirmpass;
+    private ProgressDialog mLoadingBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
+        mLoadingBar = new ProgressDialog(RegisterActivity.this);
         init();
 
         register_btn_back.setOnClickListener(new View.OnClickListener() {
@@ -72,47 +77,110 @@ public class RegisterActivity extends LoginActivity {
                 pass = register_et_pass.getText().toString().trim();
                 confirmpass = register_et_confirmpass.getText().toString().trim();
                 String regex = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
-                if(email.isEmpty() || fullname.isEmpty()||phonenumber.isEmpty()||pass.isEmpty()||confirmpass.isEmpty()){
-                    //alert here
-                    AlertDialog.Builder alert = new AlertDialog.Builder(RegisterActivity.this);
-                    alert.setTitle("Login error !");
-                    alert.setMessage("You must fill all the boxes! ");
-                    alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
 
+                if(email.isEmpty() && fullname.isEmpty() && phonenumber.isEmpty() && pass.isEmpty() && confirmpass.isEmpty()){
+                    register_et_fullname.setError("Fullname required!");
+                    register_et_email.setError("Email required!");
+                    register_et_phonenumber.setError("Phonenumber required!");
+                    register_et_pass.setError("Password required!");
+                    register_et_confirmpass.setError("Confirm password required!");
+                    return;
+                }
+                else if(email.isEmpty() || fullname.isEmpty()|| phonenumber.isEmpty()|| pass.isEmpty()|| confirmpass.isEmpty()){
+                    //alert here
+//                    AlertDialog.Builder alert = new AlertDialog.Builder(RegisterActivity.this);
+//                    alert.setTitle("Login error !");
+//                    alert.setMessage("You must fill all the boxes! ");
+//                    alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialog, int which) {
+//
+//                        }
+//                    });
+//                    AlertDialog alertDialog = alert.create();
+//                    alert.show();
+
+                    if(fullname.isEmpty()){
+                        register_et_fullname.setError("Fullname required!");
+                        return;
+                    }
+                    if(email.isEmpty()){
+                        register_et_email.setError("Email required!");
+                        return;
+                    }else{
+                        if(!email.matches(regex)) {
+                            register_et_email.setError("Invalid email format!");
+                            return;
                         }
-                    });
-                    return;
+                    }
+                    if(phonenumber.isEmpty()){
+                        register_et_phonenumber.setError("Phonenumber required!");
+                        return;
+                    }
+                    else {
+                        if(phonenumber.length() != 12 || phonenumber.length() != 11){
+                            register_et_phonenumber.setError("Phonenumber required 11 - 12 number!");
+                            return;
+                        }
+                    }
+                    if(pass.isEmpty()){
+                        register_et_pass.setError("Password required!");
+                        return;
+                    } else {
+                        if(pass.length() < 8) {
+                            //alert here
+                            register_et_pass.setError("Min 8 character");
+                            return;
+                        }
+                    }
+
+                    if(confirmpass.isEmpty()){
+                        register_et_confirmpass.setError("Confirm password required!");
+                        return;
+                    } else {
+                        if(confirmpass.equals(pass))Log.d("Pass","Pass!");
+                        else{
+                            register_et_confirmpass.setError("Password not same !");
+                            return;//alert here
+                        }
+                    }
+                }else {
+                    if(!email.matches(regex)) {
+                        register_et_email.setError("Invalid email format!");
+                        return;
+                    }
+                    if(phonenumber.length() != 12 || phonenumber.length() != 11){
+                        register_et_phonenumber.setError("Phonenumber required!");
+                        return;
+                    }
+                    if(pass.length() < 8) {
+                        //alert here
+                        register_et_pass.setError("Min 8 character");
+                        return;
+                    }
+                    if(confirmpass.equals(pass))Log.d("Pass","Pass!");
+                    else{
+                        register_et_confirmpass.setError("Password not same !");
+                        return;//alert here
+                    }
+
+                    mLoadingBar.setTitle("Registering your account");
+                    mLoadingBar.setMessage("Please wait, while check your credentials");
+                    mLoadingBar.setCanceledOnTouchOutside(false);
+                    mLoadingBar.show();
                 }
 
-                if(email.matches(regex)) {
-                    Log.d("Email","Pass!");
-                }
-                else {
-//                    Log.d("Email","Does not pass!");
-                    register_et_email.setError("Invalid email format!");
-                    return;//alert here
-                }
+//                if(confirmpass.length() < 8){
+//                    //alert here
+//                    register_et_confirmpass.setError("Min 8 character");
+//                    return;
+//                }
 
-                if(pass.length() < 8) {
-                    //alert here
-                    register_et_pass.setError("Min 8 character");
-                    return;
-                }
-
-                if(confirmpass.length() < 8){
-                    //alert here
-                    register_et_confirmpass.setError("Min 8 character");
-                    return;
-                }
-
-                if(confirmpass.equals(pass))Log.d("Pass","Pass!");
-                else{
-                    register_et_confirmpass.setError("Password not same !");
-                    return;//alert here
-                }
-
+//                if(confirmpass.equals(pass))Log.d("Pass","Pass!");
+//                else{
+//                    register_et_confirmpass.setError("Password not same !");
+//                    return;//alert here
+//                }
 
                 registerFirebase(email,pass);
                 startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
@@ -155,7 +223,8 @@ public class RegisterActivity extends LoginActivity {
                     Toast.makeText(RegisterActivity.this, "Success Register", Toast.LENGTH_SHORT).show();
                     //intent goes here
                 }else{
-                    Toast.makeText(RegisterActivity.this, "Error", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(RegisterActivity.this, "Error", Toast.LENGTH_SHORT).show();
+                    mLoadingBar.dismiss();
                 }
             }
         });

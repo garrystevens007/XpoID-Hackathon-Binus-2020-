@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,7 +44,8 @@ public class ExploreFragment extends Fragment {
 
     RecyclerView explore_rv_listUMKM;
     EditText explore_et_search;
-    TextView explore_tv_result;
+    TextView explore_tv_result, explore_tv_error;
+    ImageView explore_imgView_error;
     ArrayList<Umkm> listUmkm;
     ExploreAdapter exploreAdapter;
     FirebaseFirestore db;
@@ -56,6 +58,8 @@ public class ExploreFragment extends Fragment {
         explore_rv_listUMKM = view.findViewById(R.id.explore_rv_listUMKM);
         explore_et_search = view.findViewById(R.id.explore_et_search);
         explore_tv_result = view.findViewById(R.id.explore_tv_result);
+        explore_imgView_error = view.findViewById(R.id.explore_imgView_error);
+        explore_tv_error = view.findViewById(R.id.explore_tv_error);
         listUmkm = FirebaseStorage.umkms;
         exploreAdapter = new ExploreAdapter(getActivity(), listUmkm);
         explore_rv_listUMKM.setAdapter(exploreAdapter);
@@ -101,6 +105,15 @@ public class ExploreFragment extends Fragment {
                 filterUmkm.add(item);
             }
         }
+
+        if(filterUmkm.size() == 0){
+            explore_imgView_error.setVisibility(View.VISIBLE);
+            explore_tv_error.setVisibility(View.VISIBLE);
+        }else {
+            explore_imgView_error.setVisibility(View.INVISIBLE);
+            explore_tv_error.setVisibility(View.INVISIBLE);
+        }
+
         exploreAdapter.filterList(filterUmkm);
     }
 
