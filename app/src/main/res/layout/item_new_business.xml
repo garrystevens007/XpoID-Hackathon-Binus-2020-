@@ -3,7 +3,6 @@
     android:layout_width="70dp"
     android:layout_height="70dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:elevation="1dp"
     app:cardCornerRadius="8dp"
     android:layout_margin="10dp">
 
@@ -11,7 +10,8 @@
         android:id="@+id/square_img_logo"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/blue"
-        android:scaleType="fitXY" />
+        android:background="@drawable/custom_card_view"
+        android:scaleType="fitXY"
+        />
 
 </androidx.cardview.widget.CardView>

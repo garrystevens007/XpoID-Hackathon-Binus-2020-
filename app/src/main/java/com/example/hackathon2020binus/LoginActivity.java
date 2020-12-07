@@ -97,10 +97,10 @@ public class LoginActivity extends AppCompatActivity {
                         login_et_password.setError("Password required !");
                         return;
                     }else{
-                        if(password.length() < 6){
-                            login_et_password.setError("Password >= 6");
-                            return;
-                        }
+//                        if(password.length() < 7){
+//                            login_et_password.setError("Password >= 8");
+//                            return;
+//                        }
                     }
                 }else {
                     if(!email.matches(validateEmail)){
@@ -184,7 +184,7 @@ public class LoginActivity extends AppCompatActivity {
                     AlertDialog.Builder alert = new AlertDialog.Builder(LoginActivity.this);
                     alert.setTitle("Login error !");
                     alert.setMessage("Your Email or Password is invalid");
-                    alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
 

@@ -119,7 +119,7 @@ public class RegisterActivity extends LoginActivity {
                     }
                     else {
                         if(phonenumber.length() != 12 || phonenumber.length() != 11){
-                            register_et_phonenumber.setError("Phonenumber required!");
+                            register_et_phonenumber.setError("Phonenumber required 11 - 12 number!");
                             return;
                         }
                     }
