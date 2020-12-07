@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.hackathon2020binus.MainActivity;
 import com.example.hackathon2020binus.R;
+import com.example.hackathon2020binus.Storage.FirebaseStorage;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -37,6 +38,8 @@ public class AccountFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_account, container, false);
         init(view);
+        accountFr_tv_username.setText(FirebaseStorage.currUser);
+        accountFr_tv_email.setText(FirebaseStorage.currUserEmail);
 
         accountFr_btn_signOut.setOnClickListener(new View.OnClickListener() {
             @Override

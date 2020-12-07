@@ -212,7 +212,7 @@ public class DetailUmkmActivity extends AppCompatActivity implements OnMapReadyC
 
                 AlertDialog.Builder alert = new AlertDialog.Builder(DetailUmkmActivity.this);
                 alert.setTitle("Ask to Franchise ?");
-                alert.setMessage("Are you sure want to ask to franchise ?");
+                alert.setMessage("Are you sure want to ask to franchise ? This process cannot be cancled until our company decide it !");
                 alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -243,7 +243,7 @@ public class DetailUmkmActivity extends AppCompatActivity implements OnMapReadyC
 
                 AlertDialog.Builder alert = new AlertDialog.Builder(DetailUmkmActivity.this);
                 alert.setTitle("Ask to partnership ?");
-                alert.setMessage("Are you sure want to ask to partnership ?");
+                alert.setMessage("Are you sure want to ask to partnership ? This process cannot be cancled until our company decide it !");
                 alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {

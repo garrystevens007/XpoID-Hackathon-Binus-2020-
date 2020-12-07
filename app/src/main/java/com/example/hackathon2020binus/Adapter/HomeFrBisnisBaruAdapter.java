@@ -20,9 +20,9 @@ import java.util.ArrayList;
 
 public class HomeFrBisnisBaruAdapter extends RecyclerView.Adapter<HomeFrBisnisBaruAdapter.MyViewHolder>{
     private Context mContext;
-    private ArrayList<Umkm> mUmkmList;
+    private ArrayList<String> mUmkmList;
 
-    public HomeFrBisnisBaruAdapter(Context mContext, ArrayList<Umkm> mUmkmList) {
+    public HomeFrBisnisBaruAdapter(Context mContext, ArrayList<String> mUmkmList) {
         this.mContext = mContext;
         this.mUmkmList = mUmkmList;
     }
@@ -37,8 +37,8 @@ public class HomeFrBisnisBaruAdapter extends RecyclerView.Adapter<HomeFrBisnisBa
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        final Umkm umkm = mUmkmList.get(position);
-        Glide.with(mContext).load(umkm.getGambar()).into(holder.imageView);
+        final String umkm = mUmkmList.get(position);
+        Glide.with(mContext).load(umkm).into(holder.imageView);
     }
 
     @Override

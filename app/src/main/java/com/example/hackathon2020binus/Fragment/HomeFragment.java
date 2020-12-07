@@ -50,6 +50,7 @@ public class HomeFragment extends Fragment {
     ArrayList<Umkm> listUmkm;
     Button homeFr_btn_notification;
     ArrayList<PromotionItems> promoItems;
+    ArrayList<String> listNew;
     HomeFrBisnisBaruAdapter homeFrBisnisBaruAdapter;
     HomeFrPromotionAdapter homeFrPromotionAdapter;
     ExploreAdapter exploreAdapter;
@@ -104,7 +105,8 @@ public class HomeFragment extends Fragment {
         listUmkm = FirebaseStorage.umkms;
 
         promoItems = FirebaseStorage.promoItems;
-        homeFrBisnisBaruAdapter = new HomeFrBisnisBaruAdapter(getActivity(), listUmkm);
+        listNew = FirebaseStorage.listNewBusiness;
+        homeFrBisnisBaruAdapter = new HomeFrBisnisBaruAdapter(getActivity(), listNew);
         homeFr_rv_bisnis_terbaru.setAdapter(homeFrBisnisBaruAdapter);
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseFirestore = FirebaseFirestore.getInstance();

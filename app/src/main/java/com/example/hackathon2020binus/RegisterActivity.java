@@ -70,7 +70,7 @@ public class RegisterActivity extends LoginActivity {
         register_btn_signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(RegisterActivity.this, " Entering register", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(RegisterActivity.this, " Entering register", Toast.LENGTH_SHORT).show();
                 email = register_et_email.getText().toString().trim();
                 fullname = register_et_fullname.getText().toString().trim();
                 phonenumber = register_et_phonenumber.getText().toString().trim();
@@ -87,18 +87,6 @@ public class RegisterActivity extends LoginActivity {
                     return;
                 }
                 else if(email.isEmpty() || fullname.isEmpty()|| phonenumber.isEmpty()|| pass.isEmpty()|| confirmpass.isEmpty()){
-                    //alert here
-//                    AlertDialog.Builder alert = new AlertDialog.Builder(RegisterActivity.this);
-//                    alert.setTitle("Login error !");
-//                    alert.setMessage("You must fill all the boxes! ");
-//                    alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-//                        @Override
-//                        public void onClick(DialogInterface dialog, int which) {
-//
-//                        }
-//                    });
-//                    AlertDialog alertDialog = alert.create();
-//                    alert.show();
 
                     if(fullname.isEmpty()){
                         register_et_fullname.setError("Fullname required!");
@@ -116,12 +104,6 @@ public class RegisterActivity extends LoginActivity {
                     if(phonenumber.isEmpty()){
                         register_et_phonenumber.setError("Phonenumber required!");
                         return;
-                    }
-                    else {
-                        if(phonenumber.length() != 12 || phonenumber.length() != 11){
-                            register_et_phonenumber.setError("Phonenumber required 11 - 12 number!");
-                            return;
-                        }
                     }
                     if(pass.isEmpty()){
                         register_et_pass.setError("Password required!");
@@ -145,24 +127,6 @@ public class RegisterActivity extends LoginActivity {
                         }
                     }
                 }else {
-                    if(!email.matches(regex)) {
-                        register_et_email.setError("Invalid email format!");
-                        return;
-                    }
-                    if(phonenumber.length() != 12 || phonenumber.length() != 11){
-                        register_et_phonenumber.setError("Phonenumber required!");
-                        return;
-                    }
-                    if(pass.length() < 8) {
-                        //alert here
-                        register_et_pass.setError("Min 8 character");
-                        return;
-                    }
-                    if(confirmpass.equals(pass))Log.d("Pass","Pass!");
-                    else{
-                        register_et_confirmpass.setError("Password not same !");
-                        return;//alert here
-                    }
 
                     mLoadingBar.setTitle("Registering your account");
                     mLoadingBar.setMessage("Please wait, while check your credentials");

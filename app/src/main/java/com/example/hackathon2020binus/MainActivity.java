@@ -57,13 +57,12 @@ public class MainActivity extends AppCompatActivity {
     }
     private void getInfo() {
         String currID = firebaseAuth.getCurrentUser().getUid();
-//        Log.d("HomeFragment", "Current User " + currID);
         DocumentReference documentReference = firebaseFirestore.collection("users").document(currID);
         documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-//                Log.d("Fragment Controller", "Snapshot : " + value.getString("name"));
                 FirebaseStorage.currUser = value.getString("name");
+                FirebaseStorage.currUserEmail = value.getString("email");
                 FirebaseStorage.historyOpenFranchise = (ArrayList<String>) value.get("historyFranchise");
                 FirebaseStorage.historyOpenPartnership = (ArrayList<String>) value.get("historyPartnership");
                 FirebaseStorage.notifications = (ArrayList<String>) value.get("listNotif");

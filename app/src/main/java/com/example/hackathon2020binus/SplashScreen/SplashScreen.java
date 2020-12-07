@@ -92,6 +92,22 @@ public class SplashScreen extends AppCompatActivity {
                         }
                     });
 
+                    CollectionReference collectionReference2 = db.collection("newBusiness");
+                    Query newQuery = collectionReference2;
+
+                    newQuery.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if(task.isSuccessful()){
+                                FirebaseStorage.listNewBusiness.clear();
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                    String items = document.getData().get("gambar").toString();
+                                    FirebaseStorage.listNewBusiness.add(items);
+                                }
+                            }
+                        }
+                    });
+
                     if(FirebaseStorage.umkms.isEmpty()){
                         flag = false;
                         Toast.makeText(SplashScreen.this,"Failed to retrive data!\nNo Internet Connection", Toast.LENGTH_SHORT).show();
