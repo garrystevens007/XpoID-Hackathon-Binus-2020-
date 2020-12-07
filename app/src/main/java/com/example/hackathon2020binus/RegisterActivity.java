@@ -77,7 +77,7 @@ public class RegisterActivity extends LoginActivity {
                     AlertDialog.Builder alert = new AlertDialog.Builder(RegisterActivity.this);
                     alert.setTitle("Login error !");
                     alert.setMessage("You must fill all the boxes! ");
-                    alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
 
