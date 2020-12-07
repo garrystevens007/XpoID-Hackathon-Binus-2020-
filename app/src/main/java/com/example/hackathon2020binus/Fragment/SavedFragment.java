@@ -5,6 +5,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -43,6 +45,8 @@ public class SavedFragment extends Fragment {
     FirebaseAuth firebaseAuth;
     private ArrayList<String> savedList;
     String currID;
+    ImageView saved_imgView_error;
+    TextView saved_tv_error;
 
     @Nullable
     @Override
@@ -56,6 +60,8 @@ public class SavedFragment extends Fragment {
     private void init(View view){
         firebaseAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
+        saved_imgView_error = view.findViewById(R.id.saved_imgView_error);
+        saved_tv_error = view.findViewById(R.id.saved_tv_error);
         saved_rv_listUMKM = view.findViewById(R.id.saved_rv_listUMKM);
         savedAdapter = new SavedAdapter(getActivity(), dipsList);
         savedList();
@@ -76,6 +82,13 @@ public class SavedFragment extends Fragment {
             }
         }
         //savedAdapter.savedList(FirebaseStorage.savedListUMKM);
+        if(dipsList.size() == 0){
+            saved_imgView_error.setVisibility(View.VISIBLE);
+            saved_tv_error.setVisibility(View.VISIBLE);
+        }else {
+            saved_imgView_error.setVisibility(View.INVISIBLE);
+            saved_tv_error.setVisibility(View.INVISIBLE);
+        }
         savedAdapter.savedList(dipsList);
         Log.d("Size array savedList : ", " " + FirebaseStorage.savedListUMKM);
     }
